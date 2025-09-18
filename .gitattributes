@@ -1,0 +1,88 @@
+*                       text=auto eol=lf
+
+# Windows/Visual Studio overrides
+*.bat                   eol=crlf
+*.sln                   eol=crlf
+*.csproj                eol=crlf
+misc/msvs/*             eol=crlf
+# Godot text files (keep as text; explicitly disable LFS)
+*.tscn                  text eol=lf -filter -diff -merge
+*.gd                    text eol=lf -filter -diff -merge
+*.gdc                   text eol=lf -filter -diff -merge
+*.shader                text eol=lf -filter -diff -merge
+*.tres                  text eol=lf -filter -diff -merge
+*.gdns                  text eol=lf -filter -diff -merge
+*.gdnlib                text eol=lf -filter -diff -merge
+*.godot                 text eol=lf -filter -diff -merge
+*.import                text eol=lf -filter -diff -merge
+# LFS: binaries only
+# Images
+*.png                   filter=lfs diff=lfs merge=lfs -text
+*.jpg                   filter=lfs diff=lfs merge=lfs -text
+*.jpeg                  filter=lfs diff=lfs merge=lfs -text
+*.gif                   filter=lfs diff=lfs merge=lfs -text
+*.bmp                   filter=lfs diff=lfs merge=lfs -text
+*.tga                   filter=lfs diff=lfs merge=lfs -text
+*.tiff                  filter=lfs diff=lfs merge=lfs -text
+*.exr                   filter=lfs diff=lfs merge=lfs -text
+*.hdr                   filter=lfs diff=lfs merge=lfs -text
+*.webp                  filter=lfs diff=lfs merge=lfs -text
+*.raw                   filter=lfs diff=lfs merge=lfs -text
+# Audio / video
+*.wav                   filter=lfs diff=lfs merge=lfs -text
+*.mp3                   filter=lfs diff=lfs merge=lfs -text
+*.ogg                   filter=lfs diff=lfs merge=lfs -text
+*.flac                  filter=lfs diff=lfs merge=lfs -text
+*.opus                  filter=lfs diff=lfs merge=lfs -text
+*.mp4                   filter=lfs diff=lfs merge=lfs -text
+*.mkv                   filter=lfs diff=lfs merge=lfs -text
+*.avi                   filter=lfs diff=lfs merge=lfs -text
+*.mov                   filter=lfs diff=lfs merge=lfs -text
+# 3D / models
+*.fbx                   filter=lfs diff=lfs merge=lfs -text
+*.obj                   filter=lfs diff=lfs merge=lfs -text
+*.gltf                  filter=lfs diff=lfs merge=lfs -text
+*.glb                   filter=lfs diff=lfs merge=lfs -text
+*.stl                   filter=lfs diff=lfs merge=lfs -text
+*.dae                   filter=lfs diff=lfs merge=lfs -text
+*.blend                 filter=lfs diff=lfs merge=lfs -text
+# Fonts / archives / natives
+*.ttf                   filter=lfs diff=lfs merge=lfs -text
+*.zip                   filter=lfs diff=lfs merge=lfs -text
+*.7z                    filter=lfs diff=lfs merge=lfs -text
+*.tar                   filter=lfs diff=lfs merge=lfs -text
+*.tar.gz                filter=lfs diff=lfs merge=lfs -text
+*.exe                   filter=lfs diff=lfs merge=lfs -text
+*.dll                   filter=lfs diff=lfs merge=lfs -text
+*.so                    filter=lfs diff=lfs merge=lfs -text
+*.dylib                 filter=lfs diff=lfs merge=lfs -text
+*.framework             filter=lfs diff=lfs merge=lfs -text
+*.png filter=lfs diff=lfs merge=lfs -text
+*.jpg filter=lfs diff=lfs merge=lfs -text
+*.jpeg filter=lfs diff=lfs merge=lfs -text
+*.gif filter=lfs diff=lfs merge=lfs -text
+*.bmp filter=lfs diff=lfs merge=lfs -text
+*.tga filter=lfs diff=lfs merge=lfs -text
+*.tiff filter=lfs diff=lfs merge=lfs -text
+*.exr filter=lfs diff=lfs merge=lfs -text
+*.hdr filter=lfs diff=lfs merge=lfs -text
+*.webp filter=lfs diff=lfs merge=lfs -text
+*.raw filter=lfs diff=lfs merge=lfs -text
+*.wav filter=lfs diff=lfs merge=lfs -text
+*.mp3 filter=lfs diff=lfs merge=lfs -text
+*.ogg filter=lfs diff=lfs merge=lfs -text
+*.flac filter=lfs diff=lfs merge=lfs -text
+*.opus filter=lfs diff=lfs merge=lfs -text
+*.ttf filter=lfs diff=lfs merge=lfs -text
+*.zip filter=lfs diff=lfs merge=lfs -text
+*.7z filter=lfs diff=lfs merge=lfs -text
+*.tar filter=lfs diff=lfs merge=lfs -text
+*.tar.gz filter=lfs diff=lfs merge=lfs -text
+*.dll filter=lfs diff=lfs merge=lfs -text
+*.so filter=lfs diff=lfs merge=lfs -text
+*.dylib filter=lfs diff=lfs merge=lfs -text
+*.framework filter=lfs diff=lfs merge=lfs -text
+*.mp4 filter=lfs diff=lfs merge=lfs -text
+*.mkv filter=lfs diff=lfs merge=lfs -text
+*.avi filter=lfs diff=lfs merge=lfs -text
+*.mov filter=lfs diff=lfs merge=lfs -text
