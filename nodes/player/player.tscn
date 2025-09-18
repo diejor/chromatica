@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dfodrofh2ybv1"]
+
+[ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hls8"]
+
+[node name="Player" type="CharacterBody2D"]
+visible = false
+script = ExtResource("1_4raw8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_3hls8")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(-3, -12, 2, -14, 7, -11, 8, 5, 2, 13, -4, 13, -8, 5, -8, -9)
