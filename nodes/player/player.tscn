@@ -1,19 +1,37 @@
-[gd_scene load_steps=4 format=3 uid="uid://dfodrofh2ybv1"]
+[gd_scene load_steps=5 format=3 uid="uid://dfodrofh2ybv1"]
 
 [ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
-[ext_resource type="PackedScene" uid="uid://dhvv0gcavynk" path="res://nodes/player/flashlight.tscn" id="2_khfle"]
+[ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_khfle"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4raw8"]
+friction = 0.9
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hls8"]
+radius = 6.0
+height = 12.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_4raw8")
 script = ExtResource("1_4raw8")
+WALL_JUMP_VERTICAL_MULTIPLIER = 1.4
+WALL_JUMP_HORIZONTAL_LIMIT = 100
+DEBUG_MODE = false
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2(0, 2)
+color = Color(0.44600356, 0.4460035, 0.4460035, 1)
+polygon = PackedVector2Array(-3, -12, 2, -14, 7, -11, 8, 5, 2, 13, -4, 13, -8, 5, -8, -9)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3hls8")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("2_khfle")
+texture_scale = 5.0
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-polygon = PackedVector2Array(-3, -12, 2, -14, 7, -11, 8, 5, 2, 13, -4, 13, -8, 5, -8, -9)
-
-[node name="Flashlight" parent="." instance=ExtResource("2_khfle")]
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 20.0
