@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://dhvv0gcavynk"]
+
+[ext_resource type="Texture2D" uid="uid://bl8s13ik4tnn4" path="res://assets/cone.png" id="1_soro2"]
+
+[node name="Flashlight" type="Node2D"]
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+color = Color(1, 0, 0, 1)
+texture = ExtResource("1_soro2")
+offset = Vector2(320, 0)
+texture_scale = 0.5
