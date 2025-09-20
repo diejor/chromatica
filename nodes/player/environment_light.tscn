@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bvrqux87ahvwg"]
+
+[ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="1_j6bb8"]
+
+[node name="EnvironmentLight" type="PointLight2D"]
+energy = 0.1
+texture = ExtResource("1_j6bb8")
+texture_scale = 2.0
