@@ -2,10 +2,10 @@ extends RigidBody2D
 
 @export var LINEAR_FORCE = 500
 @export var MAX_SPEED = 200
-@export var JUMP_FORCE = 210
+@export var JUMP_FORCE = 200
 @export var WALL_JUMP_FORCE = 200
 @export var WALL_JUMP_VERTICAL_MULTIPLIER = 1.0
-@export var WALL_JUMP_HORIZONTAL_LIMIT = 120
+@export var WALL_JUMP_HORIZONTAL_LIMIT = 125
 @export var WALL_GRAB_GRAVITY_MULTIPLIER = 0.1
 @export var JUMP_HOVER_COOLDOWN = 0.2
 @export var DEBUG_MODE = false
@@ -167,19 +167,19 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# Jump logic with coyote time and wall jump
 	if _jump_requested:
 		if _on_ground:
-			state.apply_central_impulse(eff_jump_force() * _normal)
+			state.apply_central_impulse(Vector2.UP * eff_jump_force())
 			var _velocity2 = state.get_linear_velocity()
-			var _normal_velocity = _velocity2.project(_normal)
+			var _normal_velocity = _velocity2.project(Vector2.UP)
 			var _tangent_velocity = _velocity2 - _normal_velocity
 			var _transfer_velocity = _tangent_velocity * HORIZONTAL_TO_VERTICAL_RATIO
 			_velocity2 -= _transfer_velocity
-			_velocity2 += _normal_velocity.normalized() * _transfer_velocity.length() * 0.2
+			_velocity2 += Vector2.UP * _transfer_velocity.length() * 0.2
 			state.set_linear_velocity(_velocity2)
 			_hover_disabled = true
 			get_tree().create_timer(JUMP_HOVER_COOLDOWN).timeout.connect(_enable_hover)
 			_jump_requested = false
 		elif _coyote_time_counter > 0:
-			state.apply_central_impulse(eff_jump_force() * _last_ground_normal)
+			state.apply_central_impulse(Vector2.UP * eff_jump_force())
 			_hover_disabled = true
 			get_tree().create_timer(JUMP_HOVER_COOLDOWN).timeout.connect(_enable_hover)
 			_jump_requested = false
