@@ -13,13 +13,12 @@ height = 12.0
 [node name="Player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_4raw8")
 script = ExtResource("1_4raw8")
-WALL_JUMP_VERTICAL_MULTIPLIER = 1.2
-WALL_JUMP_HORIZONTAL_LIMIT = 150
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 show_behind_parent = true
 visibility_layer = 2
 z_index = -100
+scale = Vector2(2.065, 2.065)
 texture = ExtResource("2_khfle")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
@@ -36,3 +35,7 @@ position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 20.0
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = ExtResource("2_khfle")
+texture_scale = 8.0

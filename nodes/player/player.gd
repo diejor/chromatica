@@ -5,7 +5,7 @@ extends RigidBody2D
 @export var JUMP_FORCE = 210
 @export var WALL_JUMP_FORCE = 200
 @export var WALL_JUMP_VERTICAL_MULTIPLIER = 1.0
-@export var WALL_JUMP_HORIZONTAL_LIMIT = 200
+@export var WALL_JUMP_HORIZONTAL_LIMIT = 120
 @export var WALL_GRAB_GRAVITY_MULTIPLIER = 0.1
 @export var JUMP_HOVER_COOLDOWN = 0.2
 @export var DEBUG_MODE = false
@@ -19,6 +19,23 @@ extends RigidBody2D
 @export var RIDE_HEIGHT = 15.0
 @export var HOVER_FORCE_MULTIPLIER = 0.5
 @export var COYOTE_TIME = 0.1
+@export var WALL_JUMP_MIN_UP_SPEED := 220.0
+
+@export var POWER := 1.0
+@export var MOVE_POWER_SCALE := 1.0
+@export var JUMP_POWER_SCALE := 1.0
+@export var WALL_POWER_SCALE := 1.0
+@export var SPEED_POWER_SCALE := 1.0
+@export var POWER_EXP := 1.0
+
+func _p(k: float, w: float = 1.0, exp: float = POWER_EXP) -> float:
+	return k * pow(max(POWER * w, 0.0), exp)
+
+func eff_linear_force() -> float: return _p(LINEAR_FORCE, MOVE_POWER_SCALE)
+func eff_jump_force() -> float: return _p(JUMP_FORCE, JUMP_POWER_SCALE)
+func eff_wall_jump_force() -> float: return _p(WALL_JUMP_FORCE, WALL_POWER_SCALE)
+func eff_wall_jump_min_up() -> float: return _p(WALL_JUMP_MIN_UP_SPEED, WALL_POWER_SCALE)
+func eff_max_speed() -> float: return _p(MAX_SPEED, SPEED_POWER_SCALE)
 
 var _coyote_time_counter = 0.0
 var _last_ground_normal = Vector2.ZERO
@@ -114,14 +131,14 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	# Handle movement and input forces
 	var _current_velocity = state.get_linear_velocity()
 	var _current_speed = _current_velocity.length()
-	var _factor = clamp(1.0 - (_current_speed / MAX_SPEED), 0.0, 1.0)
+	var _factor = clamp(1.0 - (_current_speed / eff_max_speed()), 0.0, 1.0)
 
 	var _move_input = Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var _move_len = _move_input.length_squared()
 	var _desired_direction = _move_input.normalized()
 
 	if _move_len > 0:
-		_applied_force = _desired_direction * LINEAR_FORCE * _factor
+		_applied_force = _desired_direction * eff_linear_force() * _factor
 	else:
 		_applied_force = Vector2.ZERO
 
@@ -131,7 +148,7 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 		if _current_velocity.x * _desired_direction.x < 0:
 			_damping_factor = 1.0
-			_applied_force.x = _desired_direction.x * LINEAR_FORCE * _factor
+			_applied_force.x = _desired_direction.x * eff_linear_force() * _factor
 
 		var _damping_force = -_horizontal_velocity.normalized() * DAMPING_COEFFICIENT * _current_speed * _damping_factor
 		state.apply_central_force(_damping_force)
@@ -143,36 +160,40 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 
 	# Damping when not moving
 	if _current_speed > 0 and _move_len == 0:
-		var _horizontal_velocity = Vector2(_current_velocity.x, 0)
-		var _damping_force = -_horizontal_velocity.normalized() * DAMPING_COEFFICIENT * _current_speed
-		state.apply_central_force(_damping_force)
+		var _horizontal_velocity2 = Vector2(_current_velocity.x, 0)
+		var _damping_force2 = -_horizontal_velocity2.normalized() * DAMPING_COEFFICIENT * _current_speed
+		state.apply_central_force(_damping_force2)
 
 	# Jump logic with coyote time and wall jump
 	if _jump_requested:
 		if _on_ground:
-			state.apply_central_impulse(JUMP_FORCE * _normal)
-			var _velocity = state.get_linear_velocity()
-			var _normal_velocity = _velocity.project(_normal)
-			var _tangent_velocity = _velocity - _normal_velocity
+			state.apply_central_impulse(eff_jump_force() * _normal)
+			var _velocity2 = state.get_linear_velocity()
+			var _normal_velocity = _velocity2.project(_normal)
+			var _tangent_velocity = _velocity2 - _normal_velocity
 			var _transfer_velocity = _tangent_velocity * HORIZONTAL_TO_VERTICAL_RATIO
-			_velocity -= _transfer_velocity
-			_velocity += _normal_velocity.normalized() * _transfer_velocity.length() * 0.2
-			state.set_linear_velocity(_velocity)
+			_velocity2 -= _transfer_velocity
+			_velocity2 += _normal_velocity.normalized() * _transfer_velocity.length() * 0.2
+			state.set_linear_velocity(_velocity2)
 			_hover_disabled = true
 			get_tree().create_timer(JUMP_HOVER_COOLDOWN).timeout.connect(_enable_hover)
 			_jump_requested = false
 		elif _coyote_time_counter > 0:
-			state.apply_central_impulse(JUMP_FORCE * _last_ground_normal)
+			state.apply_central_impulse(eff_jump_force() * _last_ground_normal)
 			_hover_disabled = true
 			get_tree().create_timer(JUMP_HOVER_COOLDOWN).timeout.connect(_enable_hover)
 			_jump_requested = false
 		elif _is_near_wall:
-			var _wall_jump_direction = _contact_normals[0]
-			_wall_jump_direction = _wall_jump_direction * WALL_JUMP_FORCE
-			_wall_jump_direction.x = clamp(_wall_jump_direction.x * WALL_JUMP_FORCE, -WALL_JUMP_HORIZONTAL_LIMIT, WALL_JUMP_HORIZONTAL_LIMIT)
-			_wall_jump_direction.y = -WALL_JUMP_VERTICAL_MULTIPLIER * WALL_JUMP_FORCE
-			print(_wall_jump_direction)
-			state.apply_central_impulse(_wall_jump_direction)
+			var _wall_n = _contact_normals[0]
+			var _impulse_x = clamp(_wall_n.x * eff_wall_jump_force(), -WALL_JUMP_HORIZONTAL_LIMIT, WALL_JUMP_HORIZONTAL_LIMIT)
+			var _impulse_y = -WALL_JUMP_VERTICAL_MULTIPLIER * eff_wall_jump_force()
+			var _impulse = Vector2(_impulse_x, _impulse_y)
+			print(_impulse)
+			state.apply_central_impulse(_impulse)
+			var _v = state.get_linear_velocity()
+			if _v.y > -eff_wall_jump_min_up():
+				_v.y = -eff_wall_jump_min_up()
+			state.set_linear_velocity(_v)
 			_hover_disabled = true
 			get_tree().create_timer(JUMP_HOVER_COOLDOWN).timeout.connect(_enable_hover)
 			_jump_requested = false
