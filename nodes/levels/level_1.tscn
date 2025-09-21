@@ -7,18 +7,17 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2crut"]
 shader = ExtResource("2_f8w51")
 shader_parameter/max_desaturation = 1.0
-shader_parameter/max_distance = 500.00002375
+shader_parameter/mask_contrast = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b0awy"]
 shader = ExtResource("2_f8w51")
-shader_parameter/max_desaturation = 1.5000000712500001
-shader_parameter/max_distance = 1000.0
+shader_parameter/max_desaturation = 1.0
+shader_parameter/mask_contrast = 1.0
 
 [sub_resource type="Environment" id="Environment_hv21c"]
 background_mode = 3
 glow_enabled = true
 adjustment_enabled = true
-adjustment_saturation = 1.25
 
 [node name="Level1" type="Node2D"]
 
@@ -44,7 +43,10 @@ visibility_layer = 2
 JUMP_FORCE = 210
 WALL_JUMP_FORCE = 200
 
-[node name="LightParticles" parent="Player" index="4"]
+[node name="Desaturate" parent="Player" index="2"]
+energy = 0.0
+
+[node name="LightParticles" parent="Player" index="5"]
 visible = false
 pool_size = 20
 
