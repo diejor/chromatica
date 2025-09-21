@@ -46,12 +46,7 @@ WALL_JUMP_FORCE = 200
 [node name="Desaturate" parent="Player" index="2"]
 energy = 0.0
 
-[node name="LightParticles" parent="Player" index="5"]
-visible = false
-pool_size = 20
-
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_hv21c")
 
 [editable path="Player"]
-[editable path="Player/LightParticles"]

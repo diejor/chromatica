@@ -1,8 +1,0 @@
-[gd_scene format=3 uid="uid://dhvv0gcavynk"]
-
-[node name="Flashlight" type="Node2D"]
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-color = Color(1, 0, 0, 1)
-offset = Vector2(320, 0)
-texture_scale = 0.5

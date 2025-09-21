@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://civ2w5w5ueho"]
+
+[ext_resource type="PackedScene" uid="uid://bv0wgcrvsab1p" path="res://nodes/levels/mask_node.tscn" id="2_8juki"]
+
+[node name="Main" type="Node"]
+
+[node name="MaskNode" parent="." instance=ExtResource("2_8juki")]

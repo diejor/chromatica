@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://dfodrofh2ybv1"]
+[gd_scene load_steps=7 format=3 uid="uid://dfodrofh2ybv1"]
 
 [ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
 [ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_khfle"]
-[ext_resource type="PackedScene" uid="uid://dfgll6ikk864i" path="res://nodes/player/light_particles.tscn" id="3_fn53c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4raw8"]
 friction = 0.9
@@ -48,14 +47,3 @@ position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 20.0
-
-[node name="LightParticles" parent="." instance=ExtResource("3_fn53c")]
-pool_size = 60
-
-[node name="Area2D" parent="LightParticles" index="0"]
-visible = false
-
-[node name="CollisionShape2D" parent="LightParticles/Area2D" index="0"]
-position = Vector2(-0.5, 0)
-
-[editable path="LightParticles"]
