@@ -41,7 +41,7 @@ texture = ExtResource("7_cfy3a")
 [node name="MaskNode" parent="." instance=ExtResource("4_f8w51")]
 
 [node name="MaskViewport" parent="MaskNode" index="0"]
-size = Vector2i(2, 2)
+size = Vector2i(2703, 596)
 render_target_update_mode = 4
 
 [node name="SaturationMask" type="Node2D" parent="."]
@@ -66,8 +66,8 @@ tile_set = ExtResource("1_hv21c")
 visible = false
 offset_left = -191.99998
 offset_top = -107.99999
-offset_right = -189.99998
-offset_bottom = -105.99999
+offset_right = 2511.0
+offset_bottom = 488.0
 scale = Vector2(0.333, 0.333)
 texture = SubResource("ViewportTexture_cfy3a")
 script = ExtResource("1_mm3sv")
