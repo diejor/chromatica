@@ -1,7 +1,27 @@
-[gd_scene load_steps=2 format=3 uid="uid://civ2w5w5ueho"]
+[gd_scene load_steps=5 format=3 uid="uid://civ2w5w5ueho"]
 
+[ext_resource type="Texture2D" uid="uid://bj2hsknvgf0a6" path="res://icon.svg" id="1_ial0j"]
 [ext_resource type="PackedScene" uid="uid://bv0wgcrvsab1p" path="res://nodes/levels/mask_node.tscn" id="2_8juki"]
+[ext_resource type="Script" uid="uid://be5e07bu0jj43" path="res://nodes/levels/texture_rect.gd" id="3_7842x"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_ial0j"]
+viewport_path = NodePath("MaskNode/MaskViewport")
 
 [node name="Main" type="Node"]
 
+[node name="Camera2D" type="Camera2D" parent="."]
+
 [node name="MaskNode" parent="." instance=ExtResource("2_8juki")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 3
+position = Vector2(-25, -175)
+texture = ExtResource("1_ial0j")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -438.0
+offset_top = -11.0
+offset_right = -436.0
+offset_bottom = -9.0
+texture = SubResource("ViewportTexture_ial0j")
+script = ExtResource("3_7842x")

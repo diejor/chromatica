@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://dfodrofh2ybv1"]
+[gd_scene load_steps=5 format=3 uid="uid://dfodrofh2ybv1"]
 
 [ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
 [ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_khfle"]
@@ -10,18 +10,17 @@ friction = 0.9
 radius = 6.0
 height = 12.0
 
-[sub_resource type="Gradient" id="Gradient_fn53c"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_osu55"]
-gradient = SubResource("Gradient_fn53c")
-
 [node name="Player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_4raw8")
 script = ExtResource("1_4raw8")
-WALL_JUMP_VERTICAL_MULTIPLIER = 1.4
-WALL_JUMP_HORIZONTAL_LIMIT = 100
-DEBUG_MODE = false
+WALL_JUMP_VERTICAL_MULTIPLIER = 1.2
+WALL_JUMP_HORIZONTAL_LIMIT = 150
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+visibility_layer = 2
+z_index = -100
+texture = ExtResource("2_khfle")
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
 position = Vector2(0, 2)
@@ -31,18 +30,8 @@ polygon = PackedVector2Array(-3, -12, 2, -14, 7, -11, 8, 5, 2, 13, -4, 13, -8, 5
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_3hls8")
 
-[node name="Desaturate" type="PointLight2D" parent="."]
-blend_mode = 2
-texture = SubResource("GradientTexture2D_osu55")
-texture_scale = 5.0
-height = 256.0
-
-[node name="PointLight2D" type="PointLight2D" parent="."]
-blend_mode = 2
-texture = ExtResource("2_khfle")
-
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(4, 4)
+zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 rotation_smoothing_enabled = true

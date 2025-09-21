@@ -2,13 +2,13 @@ extends RigidBody2D
 
 @export var LINEAR_FORCE = 500
 @export var MAX_SPEED = 200
-@export var JUMP_FORCE = 200
-@export var WALL_JUMP_FORCE = 250
+@export var JUMP_FORCE = 210
+@export var WALL_JUMP_FORCE = 200
 @export var WALL_JUMP_VERTICAL_MULTIPLIER = 1.0
 @export var WALL_JUMP_HORIZONTAL_LIMIT = 200
 @export var WALL_GRAB_GRAVITY_MULTIPLIER = 0.1
 @export var JUMP_HOVER_COOLDOWN = 0.2
-@export var DEBUG_MODE = true
+@export var DEBUG_MODE = false
 @export var DRAW_SCALE = 1.0
 @export var DAMPING_COEFFICIENT = 10
 @export var HORIZONTAL_TO_VERTICAL_RATIO = 0.0

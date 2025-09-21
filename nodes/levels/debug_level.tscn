@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://cfg360i7rx8cc"]
+
+[ext_resource type="PackedScene" uid="uid://bv0wgcrvsab1p" path="res://nodes/levels/mask_node.tscn" id="1_gicnd"]
+[ext_resource type="Script" uid="uid://be5e07bu0jj43" path="res://nodes/levels/texture_rect.gd" id="2_be22v"]
+[ext_resource type="Texture2D" uid="uid://bj2hsknvgf0a6" path="res://icon.svg" id="5_whhy4"]
+
+[node name="DebugLevel" type="Node"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="MaskNode" parent="." instance=ExtResource("1_gicnd")]
+
+[node name="MaskViewport" parent="MaskNode" index="0"]
+size = Vector2i(1020, 1117)
+
+[node name="TextureRect" type="TextureRect" parent="."]
+offset_left = -447.0
+offset_top = -381.0
+offset_right = -407.0
+offset_bottom = -341.0
+script = ExtResource("2_be22v")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visibility_layer = 3
+texture = ExtResource("5_whhy4")
+
+[editable path="MaskNode"]
