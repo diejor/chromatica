@@ -193,7 +193,6 @@ func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 			var _impulse_x = clamp(_wall_n.x * eff_wall_jump_force(), -WALL_JUMP_HORIZONTAL_LIMIT, WALL_JUMP_HORIZONTAL_LIMIT)
 			var _impulse_y = -WALL_JUMP_VERTICAL_MULTIPLIER * eff_wall_jump_force()
 			var _impulse = Vector2(_impulse_x, _impulse_y)
-			print(_impulse)
 			state.apply_central_impulse(_impulse)
 			var _v = state.get_linear_velocity()
 			if _v.y > -eff_wall_jump_min_up():
