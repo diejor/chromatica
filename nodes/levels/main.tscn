@@ -31,7 +31,7 @@ adjustment_enabled = true
 [node name="MaskNode" parent="." instance=ExtResource("2_8juki")]
 
 [node name="MaskViewport" parent="MaskNode" index="0"]
-size = Vector2i(975, 710)
+size = Vector2i(2699, 783)
 render_target_update_mode = 4
 
 [node name="SaturationMask" type="Node2D" parent="."]
@@ -113,11 +113,11 @@ texture = ExtResource("7_fmb0c")
 environment = SubResource("Environment_cfy3a")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-visible = false
 color = Color(0, 0, 0, 1)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(-299, 115)
+mass = 0.1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
 shape = SubResource("RectangleShape2D_is15t")

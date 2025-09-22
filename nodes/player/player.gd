@@ -1,4 +1,6 @@
+class_name PlayerController
 extends RigidBody2D
+
 
 @export var LINEAR_FORCE = 500
 @export var MAX_SPEED = 200
