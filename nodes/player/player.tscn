@@ -1,9 +1,10 @@
-[gd_scene load_steps=10 format=3 uid="uid://dfodrofh2ybv1"]
+[gd_scene load_steps=22 format=3 uid="uid://dfodrofh2ybv1"]
 
 [ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
 [ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_khfle"]
 [ext_resource type="Script" uid="uid://dix4u8qoxjk3j" path="res://nodes/lantern/lantern_component.gd" id="3_fn53c"]
 [ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="4_osu55"]
+[ext_resource type="Texture2D" uid="uid://5wocha4bhow3" path="res://assets/satiro-Sheet v1.1.png" id="5_4j62c"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4raw8"]
 
@@ -33,6 +34,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(0.2627451, 0.25882354, 0, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LanternComponent/LanternLight:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.0]
+}
 
 [sub_resource type="Animation" id="Animation_khfle"]
 resource_name = "expand_lantern"
@@ -61,6 +74,18 @@ tracks/1/keys = {
 "update": 0,
 "values": [Color(0.2617679, 0.2606956, 4.813075e-08, 1), Color(1, 1, 0.27450982, 1)]
 }
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LanternComponent/LanternLight:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [4.0, 8.0]
+}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_osu55"]
 _data = {
@@ -71,6 +96,168 @@ _data = {
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hls8"]
 radius = 7.0
 height = 18.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hs1md"]
+atlas = ExtResource("5_4j62c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Animation" id="Animation_1fmtd"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 32, 32), Rect2(32, 0, 32, 32), Rect2(64, 0, 32, 32), Rect2(96, 0, 32, 32), Rect2(128, 0, 32, 32), Rect2(160, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_5h4ma"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_4j62c"]
+resource_name = "run"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.200662, 0.30253807, 0.40213332, 0.5009683, 0.6013238, 0.7016793),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 32, 32, 32), Rect2(32, 32, 32, 32), Rect2(64, 32, 32, 32), Rect2(96, 32, 32, 32), Rect2(128, 32, 32, 32), Rect2(160, 32, 32, 32), Rect2(192, 32, 32, 32), Rect2(224, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_hs1md"]
+resource_name = "stop"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.09959524, 0.20299183, 0.3018268),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 64, 32, 32), Rect2(32, 64, 32, 32), Rect2(64, 64, 32, 32), Rect2(96, 64, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_xl06i"]
+resource_name = "jump"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10187605, 0.2014713, 0.3025871, 0.40218234, 0.49949676),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 96, 32, 32), Rect2(32, 96, 32, 32), Rect2(64, 96, 32, 32), Rect2(96, 96, 32, 32), Rect2(128, 96, 32, 32), Rect2(160, 96, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_qwfek"]
+resource_name = "fall"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.104917124, 0.2014713, 0.3018268, 0.40142205, 0.5010173),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 128, 32, 32), Rect2(32, 128, 32, 32), Rect2(64, 128, 32, 32), Rect2(96, 128, 32, 32), Rect2(128, 128, 32, 32), Rect2(160, 128, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_1n2qe"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.098074704, 0.2037521, 0.30334735, 0.4006618, 0.49721596, 0.6036536, 0.6994475, 0.8013236, 0.9031996),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 160, 32, 32), Rect2(32, 160, 32, 32), Rect2(64, 160, 32, 32), Rect2(96, 160, 32, 32), Rect2(128, 160, 32, 32), Rect2(160, 160, 32, 32), Rect2(192, 160, 32, 32), Rect2(224, 160, 32, 32), Rect2(256, 160, 32, 32), Rect2(288, 160, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_eiqky"]
+resource_name = "hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10035551, 0.19995075, 0.3018268),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 192, 32, 32), Rect2(32, 192, 32, 32), Rect2(64, 192, 32, 32), Rect2(96, 192, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_j4qgx"]
+resource_name = "dash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.101115786, 0.20223157, 0.30106655, 0.4029426, 0.50405836),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 224, 32, 32), Rect2(32, 224, 32, 32), Rect2(64, 224, 32, 32), Rect2(96, 224, 32, 32), Rect2(128, 224, 32, 32), Rect2(160, 224, 32, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xl06i"]
+_data = {
+&"RESET": SubResource("Animation_5h4ma"),
+&"dash": SubResource("Animation_j4qgx"),
+&"die": SubResource("Animation_1n2qe"),
+&"fall": SubResource("Animation_qwfek"),
+&"hit": SubResource("Animation_eiqky"),
+&"idle": SubResource("Animation_1fmtd"),
+&"jump": SubResource("Animation_xl06i"),
+&"run": SubResource("Animation_4j62c"),
+&"stop": SubResource("Animation_hs1md")
+}
 
 [node name="Player" type="RigidBody2D"]
 physics_material_override = SubResource("PhysicsMaterial_4raw8")
@@ -90,8 +277,10 @@ script = ExtResource("3_fn53c")
 
 [node name="LanternLight" type="PointLight2D" parent="LanternComponent"]
 position = Vector2(13, 0)
+color = Color(0, 1, 0, 1)
+energy = 2.0
 texture = ExtResource("2_khfle")
-texture_scale = 8.0
+texture_scale = 4.0
 
 [node name="LanternArt" parent="LanternComponent" instance=ExtResource("4_osu55")]
 position = Vector2(13, 0)
@@ -120,5 +309,16 @@ position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 20.0
+
+[node name="PlayerArt" type="Node2D" parent="."]
+
+[node name="SatiroSheetV1_1" type="Sprite2D" parent="PlayerArt"]
+position = Vector2(-111, 20)
+texture = SubResource("AtlasTexture_hs1md")
+
+[node name="AnimationArt" type="AnimationPlayer" parent="PlayerArt"]
+libraries = {
+&"": SubResource("AnimationLibrary_xl06i")
+}
 
 [editable path="LanternComponent/LanternArt"]
