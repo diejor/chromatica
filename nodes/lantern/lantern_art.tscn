@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://c1mj4c47m7gus"]
+
+[node name="LanternArt" type="Node2D"]
+use_parent_material = true
+
+[node name="Flame" type="Polygon2D" parent="."]
+use_parent_material = true
+position = Vector2(-13.000001, 4.2124026e-07)
+color = Color(1, 1, 0.27450982, 1)
+polygon = PackedVector2Array(11, -3, 11, 2, 15, 2, 15, -3)
+
+[node name="Polygon2D3" type="Polygon2D" parent="."]
+use_parent_material = true
+position = Vector2(-13.000001, 4.2124026e-07)
+color = Color(0.13028675, 0.13028681, 0.13028672, 1)
+polygon = PackedVector2Array(10, -3, 13, -6, 16, -3)
+
+[node name="Polygon2D" type="Polygon2D" parent="."]
+use_parent_material = true
+position = Vector2(-13.000001, 5.0000005)
+color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+polygon = PackedVector2Array(10, -3, 13, 0, 16, -3)
+
+[node name="Polygon2D4" type="Polygon2D" parent="."]
+use_parent_material = true
+position = Vector2(-13.000001, 4.2124026e-07)
+color = Color(0.12941177, 0.12941177, 0.12941177, 1)
+polygon = PackedVector2Array(12, -3, 12, 2, 13, 2, 13, -3)

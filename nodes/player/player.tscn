@@ -1,26 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://dfodrofh2ybv1"]
+[gd_scene load_steps=10 format=3 uid="uid://dfodrofh2ybv1"]
 
 [ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
 [ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_khfle"]
 [ext_resource type="Script" uid="uid://dix4u8qoxjk3j" path="res://nodes/lantern/lantern_component.gd" id="3_fn53c"]
+[ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="4_osu55"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4raw8"]
-
-[sub_resource type="Animation" id="Animation_khfle"]
-resource_name = "expand_lantern"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("LanternMask:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(0.21763752, 1),
-"update": 0,
-"values": [Vector2(0.75, 0.75), Vector2(3, 3)]
-}
 
 [sub_resource type="Animation" id="Animation_fn53c"]
 length = 0.001
@@ -35,6 +20,46 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [Vector2(0.75, 0.75)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LanternComponent/LanternArt/Flame:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.2627451, 0.25882354, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_khfle"]
+resource_name = "expand_lantern"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LanternMask:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.21763752, 1),
+"update": 0,
+"values": [Vector2(0.75, 0.75), Vector2(5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LanternComponent/LanternArt/Flame:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.2617679, 0.2606956, 4.813075e-08, 1), Color(1, 1, 0.27450982, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_osu55"]
@@ -68,24 +93,11 @@ position = Vector2(13, 0)
 texture = ExtResource("2_khfle")
 texture_scale = 8.0
 
-[node name="LanternArt" type="Node2D" parent="LanternComponent"]
+[node name="LanternArt" parent="LanternComponent" instance=ExtResource("4_osu55")]
+position = Vector2(13, 0)
 
-[node name="Polygon2D2" type="Polygon2D" parent="LanternComponent/LanternArt"]
-color = Color(1, 1, 0.27450982, 1)
-polygon = PackedVector2Array(11, -3, 11, 2, 15, 2, 15, -3)
-
-[node name="Polygon2D3" type="Polygon2D" parent="LanternComponent/LanternArt"]
-color = Color(0.13028675, 0.13028681, 0.13028672, 1)
-polygon = PackedVector2Array(10, -3, 13, -6, 16, -3)
-
-[node name="Polygon2D" type="Polygon2D" parent="LanternComponent/LanternArt"]
-position = Vector2(0, 5)
-color = Color(0.12941177, 0.12941177, 0.12941177, 1)
-polygon = PackedVector2Array(10, -3, 13, 0, 16, -3)
-
-[node name="Polygon2D4" type="Polygon2D" parent="LanternComponent/LanternArt"]
-color = Color(0.12941177, 0.12941177, 0.12941177, 1)
-polygon = PackedVector2Array(12, -3, 12, 2, 13, 2, 13, -3)
+[node name="Flame" parent="LanternComponent/LanternArt" index="0"]
+color = Color(0.2627451, 0.25882354, 0, 1)
 
 [node name="LanternAnimations" type="AnimationPlayer" parent="LanternComponent"]
 root_node = NodePath("../..")
@@ -108,3 +120,5 @@ position_smoothing_enabled = true
 position_smoothing_speed = 20.0
 rotation_smoothing_enabled = true
 rotation_smoothing_speed = 20.0
+
+[editable path="LanternComponent/LanternArt"]
