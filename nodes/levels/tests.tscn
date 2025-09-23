@@ -1,9 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cs1ws1nags66"]
 
-[ext_resource type="Texture2D" uid="uid://drj2pygiim28w" path="res://assets/adve-tiles.png" id="1_0spuw"]
+[ext_resource type="Script" uid="uid://dgpy14e341g7e" path="res://nodes/levels/tests.gd" id="1_0h06y"]
 
 [node name="Tests" type="Node2D"]
-
-[node name="AdveTiles" type="Sprite2D" parent="."]
-position = Vector2(77, -5)
-texture = ExtResource("1_0spuw")
+script = ExtResource("1_0h06y")
