@@ -1,0 +1,504 @@
+[gd_scene load_steps=34 format=3 uid="uid://dfodrofh2ybv1"]
+
+[ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
+[ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_khfle"]
+[ext_resource type="Script" uid="uid://dix4u8qoxjk3j" path="res://nodes/lantern/lantern_component.gd" id="3_fn53c"]
+[ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="4_osu55"]
+[ext_resource type="Texture2D" uid="uid://5wocha4bhow3" path="res://assets/satiro-Sheet v1.1.png" id="5_4j62c"]
+[ext_resource type="Script" uid="uid://tqh1lt2f7jpq" path="res://nodes/player/art_animation_tree.gd" id="6_hs1md"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4raw8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hs1md"]
+atlas = ExtResource("5_4j62c")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Animation" id="Animation_5h4ma"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_j4qgx"]
+resource_name = "dash"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.101115786, 0.20223157, 0.30106655, 0.4029426, 0.50405836),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 224, 32, 32), Rect2(32, 224, 32, 32), Rect2(64, 224, 32, 32), Rect2(96, 224, 32, 32), Rect2(128, 224, 32, 32), Rect2(160, 224, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_1n2qe"]
+resource_name = "die"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.098074704, 0.2037521, 0.30334735, 0.4006618, 0.49721596, 0.6036536, 0.6994475, 0.8013236, 0.9031996),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 160, 32, 32), Rect2(32, 160, 32, 32), Rect2(64, 160, 32, 32), Rect2(96, 160, 32, 32), Rect2(128, 160, 32, 32), Rect2(160, 160, 32, 32), Rect2(192, 160, 32, 32), Rect2(224, 160, 32, 32), Rect2(256, 160, 32, 32), Rect2(288, 160, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_qwfek"]
+resource_name = "fall"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.104917124, 0.2014713, 0.3018268, 0.40142205, 0.5010173),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 128, 32, 32), Rect2(32, 128, 32, 32), Rect2(64, 128, 32, 32), Rect2(96, 128, 32, 32), Rect2(128, 128, 32, 32), Rect2(160, 128, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_eiqky"]
+resource_name = "hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10035551, 0.19995075, 0.3018268),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 192, 32, 32), Rect2(32, 192, 32, 32), Rect2(64, 192, 32, 32), Rect2(96, 192, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_1fmtd"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.099999994, 0.19999999, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 0, 32, 32), Rect2(32, 0, 32, 32), Rect2(64, 0, 32, 32), Rect2(96, 0, 32, 32), Rect2(128, 0, 32, 32), Rect2(160, 0, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_xl06i"]
+resource_name = "jump"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.10187605, 0.2014713, 0.3025871, 0.40218234, 0.49949676),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 96, 32, 32), Rect2(32, 96, 32, 32), Rect2(64, 96, 32, 32), Rect2(96, 96, 32, 32), Rect2(128, 96, 32, 32), Rect2(160, 96, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_4j62c"]
+resource_name = "run"
+length = 0.8
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.200662, 0.30253807, 0.40213332, 0.5009683, 0.6013238, 0.7016793),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 32, 32, 32), Rect2(32, 32, 32, 32), Rect2(64, 32, 32, 32), Rect2(96, 32, 32, 32), Rect2(128, 32, 32, 32), Rect2(160, 32, 32, 32), Rect2(192, 32, 32, 32), Rect2(224, 32, 32, 32)]
+}
+
+[sub_resource type="Animation" id="Animation_hs1md"]
+resource_name = "stop"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.09959524, 0.20299183, 0.3018268),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Rect2(0, 64, 32, 32), Rect2(32, 64, 32, 32), Rect2(64, 64, 32, 32), Rect2(96, 64, 32, 32)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xl06i"]
+_data = {
+&"RESET": SubResource("Animation_5h4ma"),
+&"dash": SubResource("Animation_j4qgx"),
+&"die": SubResource("Animation_1n2qe"),
+&"fall": SubResource("Animation_qwfek"),
+&"hit": SubResource("Animation_eiqky"),
+&"idle": SubResource("Animation_1fmtd"),
+&"jump": SubResource("Animation_xl06i"),
+&"run": SubResource("Animation_4j62c"),
+&"stop": SubResource("Animation_hs1md")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hs1md"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1fmtd"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5h4ma"]
+animation = &"stop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xl06i"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qwfek"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1fmtd"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_hs1md")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_1fmtd")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_5h4ma")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_xl06i")
+blend_point_3/pos = Vector2(-1, 1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_qwfek")
+blend_point_4/pos = Vector2(1, 1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_hs1md"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_hs1md"]
+states/Movement/node = SubResource("AnimationNodeBlendSpace2D_1fmtd")
+states/Movement/position = Vector2(405.6, 37.2)
+states/Start/position = Vector2(177.6, 99.2)
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_hs1md")]
+
+[sub_resource type="Animation" id="Animation_lh1gn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1.515, 1.515)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SatiroSheetV1_1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-3, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../LanternComponent/LanternArt:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13, 0)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../LanternMask:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../LanternComponent/LanternLight:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(13, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_2xyxk"]
+resource_name = "flip"
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SatiroSheetV1_1:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(1.515, 1.515), Vector2(-1.515, 1.515)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SatiroSheetV1_1:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.001),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [Vector2(-3, -2), Vector2(4, -2)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../LanternComponent/LanternArt:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.001),
+"transitions": PackedFloat32Array(0.9012503, 1),
+"update": 0,
+"values": [Vector2(13, 0.075), Vector2(-13, 0.075)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../../LanternMask:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.001),
+"transitions": PackedFloat32Array(0.071793616, 1),
+"update": 0,
+"values": [Vector2(13, 0), Vector2(-13, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("../LanternComponent/LanternLight:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.0009999999),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(13, 0), Vector2(-13, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lancr"]
+_data = {
+&"RESET": SubResource("Animation_lh1gn"),
+&"flip": SubResource("Animation_2xyxk")
+}
+
+[sub_resource type="Animation" id="Animation_fn53c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LanternMask:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.75, 0.75)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/LanternComponent/LanternArt/Flame:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.2627451, 0.25882354, 0, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/LanternComponent/LanternLight:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [4.0]
+}
+
+[sub_resource type="Animation" id="Animation_khfle"]
+resource_name = "expand_lantern"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LanternMask:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(0.21763752, 1),
+"update": 0,
+"values": [Vector2(0.75, 0.75), Vector2(5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Visuals/LanternComponent/LanternArt/Flame:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.2617679, 0.2606956, 4.813075e-08, 1), Color(1, 1, 0.27450982, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Visuals/LanternComponent/LanternLight:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 8.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_osu55"]
+_data = {
+&"RESET": SubResource("Animation_fn53c"),
+&"expand_lantern": SubResource("Animation_khfle")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hls8"]
+radius = 6.0
+height = 18.0
+
+[node name="Player" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_4raw8")
+script = ExtResource("1_4raw8")
+DEBUG_MODE = true
+
+[node name="LanternMask" type="Sprite2D" parent="."]
+show_behind_parent = true
+visibility_layer = 2
+z_index = -1
+position = Vector2(13, 0)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_khfle")
+
+[node name="Visuals" type="Node2D" parent="."]
+
+[node name="PlayerArt" type="Node2D" parent="Visuals"]
+
+[node name="SatiroSheetV1_1" type="Sprite2D" parent="Visuals/PlayerArt"]
+position = Vector2(-3, -2)
+scale = Vector2(1.515, 1.515)
+texture = SubResource("AtlasTexture_hs1md")
+
+[node name="ArtAnimationPlayer" type="AnimationPlayer" parent="Visuals/PlayerArt"]
+libraries = {
+&"": SubResource("AnimationLibrary_xl06i")
+}
+
+[node name="ArtAnimationTree" type="AnimationTree" parent="Visuals/PlayerArt"]
+tree_root = SubResource("AnimationNodeStateMachine_hs1md")
+anim_player = NodePath("../ArtAnimationPlayer")
+parameters/Movement/blend_position = Vector2(-0.95648795, 0.110375285)
+script = ExtResource("6_hs1md")
+
+[node name="FlipAnimationPlayer" type="AnimationPlayer" parent="Visuals/PlayerArt"]
+libraries = {
+&"": SubResource("AnimationLibrary_lancr")
+}
+
+[node name="LanternComponent" type="Node2D" parent="Visuals"]
+show_behind_parent = true
+script = ExtResource("3_fn53c")
+
+[node name="LanternLight" type="PointLight2D" parent="Visuals/LanternComponent"]
+position = Vector2(13, 0)
+energy = 2.0
+texture = ExtResource("2_khfle")
+texture_scale = 4.0
+
+[node name="LanternArt" parent="Visuals/LanternComponent" instance=ExtResource("4_osu55")]
+position = Vector2(13, 0)
+
+[node name="Flame" parent="Visuals/LanternComponent/LanternArt" index="0"]
+color = Color(0.2627451, 0.25882354, 0, 1)
+
+[node name="LanternAnimations" type="AnimationPlayer" parent="Visuals/LanternComponent"]
+root_node = NodePath("../../..")
+libraries = {
+&"": SubResource("AnimationLibrary_osu55")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("CapsuleShape2D_3hls8")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(3, 3)
+position_smoothing_enabled = true
+position_smoothing_speed = 20.0
+rotation_smoothing_enabled = true
+rotation_smoothing_speed = 20.0
+
+[editable path="Visuals/LanternComponent/LanternArt"]
