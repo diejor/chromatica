@@ -5,7 +5,7 @@ signal jumped
 signal landed
 signal wall_jumped
 signal on_ground_changed(on_ground: bool)
-signal on_lantern_changed(is_active: bool)
+signal on_lantern_changed(is_active: bool, color: LanternColor.LanternColors)
 
 @onready var motor: PlayerMotor = $Motor
 @onready var lantern = $LanternComponent

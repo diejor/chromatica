@@ -2,6 +2,7 @@ class_name Maskable
 extends Node2D
 
 func _bind_uniforms(mask_node: MaskNode) -> void:
+	assert(material, "A Maskable node must have a material set")
 	var root := get_tree().root
 	var vis := root.get_visible_rect()
 	var tex := mask_node.get_mask_texture()

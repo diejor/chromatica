@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dqhmw0odkdhpk"]
+
+[ext_resource type="Script" uid="uid://wvx4tjb6k276" path="res://nodes/gameplay/lantern_color.gd" id="1_2vokw"]
+
+[node name="LanternColor" type="Node"]
+script = ExtResource("1_2vokw")

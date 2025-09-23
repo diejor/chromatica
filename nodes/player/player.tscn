@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://dfodrofh2ybv1"]
+[gd_scene load_steps=36 format=3 uid="uid://dfodrofh2ybv1"]
 
 [ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
 [ext_resource type="Script" uid="uid://gdjdo3vyarp4" path="res://nodes/player/motor.gd" id="2_1fmtd"]
@@ -13,6 +13,9 @@
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3hls8"]
 radius = 6.0
 height = 16.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1fmtd"]
+radius = 37.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hs1md"]
 atlas = ExtResource("5_4j62c")
@@ -242,7 +245,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../LanternComponent/Lanter:position")
+tracks/2/path = NodePath("../LanternArt/Lanter:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -266,7 +269,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../LanternComponent/LanternLight:position")
+tracks/4/path = NodePath("../LanternArt/LanternLight:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -306,7 +309,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../LanternComponent/Lanter:position")
+tracks/2/path = NodePath("../LanternArt/Lanter:position")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -330,7 +333,7 @@ tracks/3/keys = {
 tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("../LanternComponent/LanternLight:position")
+tracks/4/path = NodePath("../LanternArt/LanternLight:position")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
@@ -363,7 +366,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visuals/LanternComponent/Lanter/Flame:color")
+tracks/1/path = NodePath("Visuals/LanternArt/Lanter/Flame:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -375,14 +378,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Visuals/LanternComponent/LanternLight:texture_scale")
+tracks/2/path = NodePath("Visuals/LanternArt/LanternLight:texture_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [4.0]
+"values": [2.0]
 }
 
 [sub_resource type="Animation" id="Animation_khfle"]
@@ -403,7 +406,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("Visuals/LanternComponent/Lanter/Flame:color")
+tracks/1/path = NodePath("Visuals/LanternArt/Lanter/Flame:color")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -415,7 +418,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("Visuals/LanternComponent/LanternLight:texture_scale")
+tracks/2/path = NodePath("Visuals/LanternArt/LanternLight:texture_scale")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -466,8 +469,15 @@ rotation_smoothing_speed = 20.0
 [node name="Motor" type="Node" parent="."]
 script = ExtResource("2_1fmtd")
 
-[node name="LanternComponent" type="Node" parent="."]
+[node name="LanternComponent" type="Node2D" parent="."]
 script = ExtResource("3_fn53c")
+
+[node name="InteractArea" type="Area2D" parent="LanternComponent"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LanternComponent/InteractArea"]
+shape = SubResource("CircleShape2D_1fmtd")
 
 [node name="Visuals" type="Node2D" parent="."]
 visibility_layer = 3
@@ -503,24 +513,28 @@ libraries = {
 &"": SubResource("AnimationLibrary_lancr")
 }
 
-[node name="LanternComponent" type="Node2D" parent="Visuals"]
+[node name="LanternArt" type="Node2D" parent="Visuals"]
 show_behind_parent = true
 
-[node name="LanternLight" type="PointLight2D" parent="Visuals/LanternComponent"]
+[node name="LanternLight" type="PointLight2D" parent="Visuals/LanternArt"]
 position = Vector2(13, 0)
+color = Color(1, 0, 0, 1)
 texture = ExtResource("2_khfle")
-texture_scale = 4.0
+texture_scale = 2.0
 
-[node name="Lanter" parent="Visuals/LanternComponent" instance=ExtResource("4_osu55")]
+[node name="Lanter" parent="Visuals/LanternArt" instance=ExtResource("4_osu55")]
 position = Vector2(13, 0)
 
-[node name="Flame" parent="Visuals/LanternComponent/Lanter" index="0"]
+[node name="Flame" parent="Visuals/LanternArt/Lanter" index="0"]
 color = Color(0.2627451, 0.25882354, 0, 1)
 
-[node name="LanternAnimations" type="AnimationPlayer" parent="Visuals/LanternComponent"]
+[node name="LanternAnimations" type="AnimationPlayer" parent="Visuals/LanternArt"]
 root_node = NodePath("../../..")
 libraries = {
 &"": SubResource("AnimationLibrary_osu55")
 }
 
-[editable path="Visuals/LanternComponent/Lanter"]
+[connection signal="body_entered" from="LanternComponent/InteractArea" to="LanternComponent" method="_on_interact_area_body_entered"]
+[connection signal="body_exited" from="LanternComponent/InteractArea" to="LanternComponent" method="_on_interact_area_body_exited"]
+
+[editable path="Visuals/LanternArt/Lanter"]

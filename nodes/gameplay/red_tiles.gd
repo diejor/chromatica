@@ -6,8 +6,9 @@ func _ready() -> void:
 	player.on_lantern_changed.connect(on_lantern_changed)
 	collision_enabled = true
 	
-func on_lantern_changed(is_active: bool):
-	if is_active:
+func on_lantern_changed(is_active: bool, color: LanternColor.LanternColors):
+	if is_active and color == LanternColor.LanternColors.RED:
+		print(color)
 		collision_enabled = false
 	else:
 		collision_enabled = true
