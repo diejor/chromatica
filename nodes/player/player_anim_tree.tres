@@ -1,0 +1,39 @@
+[gd_resource type="AnimationNodeStateMachine" load_steps=8 format=3 uid="uid://cg2kvs3kg34sj"]
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_hs1md"]
+animation = &"idle"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_1fmtd"]
+animation = &"run"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_5h4ma"]
+animation = &"stop"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_xl06i"]
+animation = &"fall"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qwfek"]
+animation = &"jump"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_1fmtd"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_hs1md")
+blend_point_0/pos = Vector2(0, 0)
+blend_point_1/node = SubResource("AnimationNodeAnimation_1fmtd")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_5h4ma")
+blend_point_2/pos = Vector2(-1, 0)
+blend_point_3/node = SubResource("AnimationNodeAnimation_xl06i")
+blend_point_3/pos = Vector2(-1, 1)
+blend_point_4/node = SubResource("AnimationNodeAnimation_qwfek")
+blend_point_4/pos = Vector2(1, 1)
+blend_mode = 1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tk5dv"]
+advance_mode = 2
+
+[resource]
+resource_local_to_scene = true
+states/Movement/node = SubResource("AnimationNodeBlendSpace2D_1fmtd")
+states/Movement/position = Vector2(460, 100.144)
+states/Start/position = Vector2(177.6, 99.2)
+transitions = ["Start", "Movement", SubResource("AnimationNodeStateMachineTransition_tk5dv")]
