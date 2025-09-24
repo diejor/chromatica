@@ -35,8 +35,8 @@ shader_parameter/thresh_width = 0.2
 shader_parameter/hard_soft_mix = 1.0
 shader_parameter/gamma = 1.0
 shader_parameter/edge_softness_px = 1.0
-shader_parameter/keep_ignore_modulate = true
-shader_parameter/invert_mask = false
+shader_parameter/keep_ignore_modulate = false
+shader_parameter/invert_mask = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_fmb0c"]
 shader = ExtResource("2_is15t")
@@ -53,7 +53,7 @@ shader_parameter/invert_mask = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_32ti2"]
 shader = ExtResource("2_is15t")
-shader_parameter/mask_flip_y = false
+shader_parameter/mask_flip_y = true
 shader_parameter/desat_strength = 1.0
 shader_parameter/mask_uses_alpha = true
 shader_parameter/thresh_center = 0.5
@@ -106,9 +106,6 @@ shader_parameter/invert_mask = false
 [sub_resource type="Environment" id="Environment_cfy3a"]
 background_mode = 3
 glow_enabled = true
-glow_intensity = 6.0
-glow_bloom = 0.1
-glow_hdr_threshold = 2.0
 adjustment_enabled = true
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_32ti2"]
@@ -121,7 +118,7 @@ friction = 0.5
 [node name="MaskNode" parent="." instance=ExtResource("2_8juki")]
 
 [node name="MaskViewport" parent="MaskNode" index="0"]
-size = Vector2i(1010, 788)
+size = Vector2i(555, 555)
 render_target_update_mode = 4
 
 [node name="SaturationMask" type="Node2D" parent="."]
@@ -141,18 +138,20 @@ tile_map_data = PackedByteArray("AAD8/wQAAAAEAAMAAAD9/wQAAAAEAAQAAAD+/wQAAAAEAAQ
 tile_set = ExtResource("4_h4jyf")
 
 [node name="BlueTiles" type="TileMapLayer" parent="SaturationMask"]
-modulate = Color(7.9112988, 7.9112988, 7.9112988, 0.028)
+modulate = Color(11.092905, 11.607058, 33.704998, 0.027)
 material = SubResource("ShaderMaterial_p7gfi")
 tile_map_data = PackedByteArray("AAAHAAAAAAAMAAEAAAAIAAAAAAAKAAEAAAAIAAEAAAAMAAIAAAAJAAEAAAALAAQAAAAJAAIAAAAMAAUAAAAIAAIAAAALAAUAAAAHAAIAAAAMAAUAAAAHAAEAAAAMAAIAAAAJAAAAAAAKAAEAAAAKAAEAAAALAAMAAAAKAAAAAAALAAEAAAALAAEAAAANAAMAAAALAAIAAAANAAUAAAAKAAIAAAAKAAUAAAALAAAAAAANAAEAAAAGAAAAAAALAAEAAAAGAAEAAAAKAAIAAAAFAAEAAAAJAAMAAAAFAAAAAAAJAAEAAAAFAAIAAAAJAAUAAAAGAAIAAAALAAUAAAA=")
 tile_set = ExtResource("4_h4jyf")
 script = ExtResource("7_wxtai")
 
 [node name="RedTiles" type="TileMapLayer" parent="SaturationMask"]
-modulate = Color(7.9112988, 7.9112988, 7.9112988, 0.059000004)
+modulate = Color(4.415934, 4.415934, 4.415934, 0.010000001)
 material = SubResource("ShaderMaterial_fmb0c")
 tile_map_data = PackedByteArray("AAD2//7/AAANABMAAAD2//3/AAANABIAAAD2//z/AAANABIAAAD2//v/AAANABIAAAD2//r/AAANAA8AAAD1//r/AAAJAA8AAAD1//v/AAAJABIAAAD1//z/AAAJABAAAAD1//3/AAAJABAAAAD1//7/AAAJABMAAAA=")
 tile_set = ExtResource("4_h4jyf")
 script = ExtResource("8_fmb0c")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="SaturationMask"]
 
 [node name="Polygon2D" type="Polygon2D" parent="SaturationMask"]
 material = SubResource("ShaderMaterial_32ti2")
@@ -193,7 +192,7 @@ texture_scale = 0.8
 environment = SubResource("Environment_cfy3a")
 
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0.19650194, 0.19650194, 0.19650194, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="RigidBody2D" type="RigidBody2D" parent="."]
 position = Vector2(-299, 115)

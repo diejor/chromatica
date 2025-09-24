@@ -8,7 +8,6 @@ func _ready() -> void:
 	
 func on_lantern_changed(is_active: bool, color: LanternColor.LanternColors):
 	if is_active and color == LanternColor.LanternColors.RED:
-		print(color)
 		collision_enabled = false
 	else:
 		collision_enabled = true
