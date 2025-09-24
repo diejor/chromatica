@@ -118,7 +118,7 @@ friction = 0.5
 [node name="MaskNode" parent="." instance=ExtResource("2_8juki")]
 
 [node name="MaskViewport" parent="MaskNode" index="0"]
-size = Vector2i(555, 555)
+size = Vector2i(2063, 788)
 render_target_update_mode = 4
 
 [node name="SaturationMask" type="Node2D" parent="."]
@@ -138,14 +138,14 @@ tile_map_data = PackedByteArray("AAD8/wQAAAAEAAMAAAD9/wQAAAAEAAQAAAD+/wQAAAAEAAQ
 tile_set = ExtResource("4_h4jyf")
 
 [node name="BlueTiles" type="TileMapLayer" parent="SaturationMask"]
-modulate = Color(11.092905, 11.607058, 33.704998, 0.027)
+modulate = Color(2.001063, 1.8860528, 4.415934, 0.25)
 material = SubResource("ShaderMaterial_p7gfi")
 tile_map_data = PackedByteArray("AAAHAAAAAAAMAAEAAAAIAAAAAAAKAAEAAAAIAAEAAAAMAAIAAAAJAAEAAAALAAQAAAAJAAIAAAAMAAUAAAAIAAIAAAALAAUAAAAHAAIAAAAMAAUAAAAHAAEAAAAMAAIAAAAJAAAAAAAKAAEAAAAKAAEAAAALAAMAAAAKAAAAAAALAAEAAAALAAEAAAANAAMAAAALAAIAAAANAAUAAAAKAAIAAAAKAAUAAAALAAAAAAANAAEAAAAGAAAAAAALAAEAAAAGAAEAAAAKAAIAAAAFAAEAAAAJAAMAAAAFAAAAAAAJAAEAAAAFAAIAAAAJAAUAAAAGAAIAAAALAAUAAAA=")
 tile_set = ExtResource("4_h4jyf")
 script = ExtResource("7_wxtai")
 
 [node name="RedTiles" type="TileMapLayer" parent="SaturationMask"]
-modulate = Color(4.415934, 4.415934, 4.415934, 0.010000001)
+modulate = Color(0, 4.415934, 4.415934, 0.25)
 material = SubResource("ShaderMaterial_fmb0c")
 tile_map_data = PackedByteArray("AAD2//7/AAANABMAAAD2//3/AAANABIAAAD2//z/AAANABIAAAD2//v/AAANABIAAAD2//r/AAANAA8AAAD1//r/AAAJAA8AAAD1//v/AAAJABIAAAD1//z/AAAJABAAAAD1//3/AAAJABAAAAD1//7/AAAJABMAAAA=")
 tile_set = ExtResource("4_h4jyf")
@@ -181,12 +181,12 @@ visibility_layer = 3
 show_behind_parent = true
 visibility_layer = 3
 z_index = -2
-position = Vector2(-175, -100)
-energy = 2.12
+position = Vector2(-113, -74)
 texture = ExtResource("7_fmb0c")
-texture_scale = 0.8
+texture_scale = 48.46
 
 [node name="SaturatedMask" parent="PointLight2D" instance=ExtResource("11_fmb0c")]
+scale = Vector2(20, 20)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_cfy3a")
