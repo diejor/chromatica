@@ -63,12 +63,10 @@ var _hover_disabled := false
 func request_jump() -> void:
 	_jump_requested = true
 
-# --- input collection (kept here to keep root clean) ---
 func step_process(_delta: float) -> void:
 	if Input.is_action_just_pressed("jump") and (_on_ground or _coyote_time_counter > 0.0 or _is_near_wall):
 		_jump_requested = true
 
-# --- physics step (forwarded from root) ---
 func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	_contact_points.clear()
 	_contact_normals.clear()
@@ -226,7 +224,6 @@ func _do_wall_jump(state: PhysicsDirectBodyState2D) -> void:
 	_disable_hover_temporarily(owner)
 	wall_jumped.emit()
 
-# --- debug drawing via root's _draw ---
 var _dbg_applied := Vector2.ZERO
 var _dbg_gravity := Vector2.ZERO
 var _dbg_normal := Vector2.ZERO
@@ -238,7 +235,7 @@ func debug_draw(drawer: CanvasItem) -> void:
 	_dbg_gravity = _gravity_force * 0.1
 	_dbg_normal = _normal * 40.0
 
-	_draw_arrow(drawer, Vector2.ZERO, _dbg_applied, Color(1,0,0))
+	_draw_arrow(drawer, Vector2.ZERO, _dbg_applied, Color(1,1,0))
 	_draw_arrow(drawer, Vector2.ZERO, _dbg_gravity, Color(0,0,1))
 	_draw_arrow(drawer, Vector2.ZERO, _dbg_normal, Color(0,1,0))
 

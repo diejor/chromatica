@@ -1,16 +1,25 @@
-[gd_scene load_steps=22 format=4 uid="uid://c3krt76nlapyv"]
+[gd_scene load_steps=21 format=4 uid="uid://c3krt76nlapyv"]
 
 [ext_resource type="PackedScene" uid="uid://bv0wgcrvsab1p" path="res://nodes/saturation_mask/mask_node.tscn" id="2_8juki"]
 [ext_resource type="Shader" uid="uid://d3uebi86wpdfa" path="res://nodes/saturation_mask/saturation_mask.gdshader" id="2_is15t"]
 [ext_resource type="Script" uid="uid://111k403p8a4c" path="res://nodes/saturation_mask/saturation_mask.gd" id="3_32ti2"]
 [ext_resource type="TileSet" uid="uid://cf07dmb8ag4hd" path="res://nodes/levels/tileset.tres" id="4_h4jyf"]
-[ext_resource type="Script" uid="uid://dwiu3l8biuyw0" path="res://nodes/saturation_mask/maskable.gd" id="5_32ti2"]
+[ext_resource type="Script" path="res://nodes/saturation_mask/maskable.gd" id="5_32ti2"]
 [ext_resource type="PackedScene" uid="uid://dfodrofh2ybv1" path="res://nodes/player/player.tscn" id="6_wxtai"]
 [ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="7_fmb0c"]
 [ext_resource type="PackedScene" uid="uid://rxiqf0u87fub" path="res://nodes/statue/statue.tscn" id="7_is15t"]
 [ext_resource type="Script" uid="uid://dipcqr8y4uq8p" path="res://nodes/gameplay/blue_tiles.gd" id="7_wxtai"]
 [ext_resource type="Script" uid="uid://skobsgt85phl" path="res://nodes/gameplay/red_tiles.gd" id="8_fmb0c"]
+[ext_resource type="PackedScene" uid="uid://by4s5s2n0xwqe" path="res://nodes/gameplay/rigid_block.tscn" id="9_p7gfi"]
 [ext_resource type="PackedScene" uid="uid://d3nwc37sijhkr" path="res://nodes/saturation_mask/saturated_mask.tscn" id="11_fmb0c"]
+
+[sub_resource type="Environment" id="Environment_cfy3a"]
+background_mode = 3
+tonemap_mode = 4
+glow_enabled = true
+glow_intensity = 3.0
+glow_bloom = 0.15
+adjustment_enabled = true
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_cfy3a"]
 shader = ExtResource("2_is15t")
@@ -18,7 +27,7 @@ shader_parameter/mask_flip_y = false
 shader_parameter/desat_strength = 1.250000059375
 shader_parameter/mask_uses_alpha = true
 shader_parameter/thresh_center = 0.5
-shader_parameter/thresh_width = 1.0
+shader_parameter/thresh_width = 0.2
 shader_parameter/hard_soft_mix = 1.0
 shader_parameter/gamma = 1.0
 shader_parameter/edge_softness_px = 1.0
@@ -103,31 +112,23 @@ shader_parameter/edge_softness_px = 1.0
 shader_parameter/keep_ignore_modulate = false
 shader_parameter/invert_mask = false
 
-[sub_resource type="Environment" id="Environment_cfy3a"]
-background_mode = 3
-tonemap_mode = 4
-glow_enabled = true
-glow_intensity = 3.0
-glow_bloom = 0.25
-adjustment_enabled = true
-
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fmb0c"]
-friction = 0.1
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmb0c"]
-
 [node name="Main" type="Node"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cfy3a")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0, 0, 0, 1)
 
 [node name="MaskNode" parent="." instance=ExtResource("2_8juki")]
 
 [node name="MaskViewport" parent="MaskNode" index="0"]
-size = Vector2i(2, 2)
+size = Vector2i(2742, 866)
 render_target_update_mode = 4
 
 [node name="SaturationMask" type="Node2D" parent="."]
 visibility_layer = 3
 material = SubResource("ShaderMaterial_cfy3a")
-scale = Vector2(2, 2)
 script = ExtResource("3_32ti2")
 
 [node name="Background" type="TileMapLayer" parent="SaturationMask"]
@@ -213,37 +214,25 @@ material = SubResource("ShaderMaterial_2wky7")
 position = Vector2(-155, -40)
 lantern_color = 1
 
-[node name="Player" parent="." instance=ExtResource("6_wxtai")]
-unique_name_in_owner = true
-visibility_layer = 3
+[node name="RigidBlock" parent="SaturationMask" instance=ExtResource("9_p7gfi")]
+use_parent_material = true
+position = Vector2(-266, 134)
 
 [node name="PointLight2D" type="PointLight2D" parent="."]
 visible = false
 show_behind_parent = true
 visibility_layer = 3
 z_index = -2
-position = Vector2(-113, -74)
+position = Vector2(-280, 88)
 texture = ExtResource("7_fmb0c")
 texture_scale = 25.0
 
 [node name="SaturatedMask" parent="PointLight2D" instance=ExtResource("11_fmb0c")]
 scale = Vector2(10, 10)
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_cfy3a")
-
-[node name="CanvasModulate" type="CanvasModulate" parent="."]
-color = Color(0, 0, 0, 1)
-
-[node name="RigidBody2D" type="RigidBody2D" parent="."]
-position = Vector2(-266, 134)
-physics_material_override = SubResource("PhysicsMaterial_fmb0c")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
-shape = SubResource("RectangleShape2D_fmb0c")
-
-[node name="Polygon2D" type="Polygon2D" parent="RigidBody2D"]
-position = Vector2(0, -1)
-polygon = PackedVector2Array(-10, -9, -10, -9, -10, 11, 10, 11, 10, -9)
+[node name="Player" parent="." instance=ExtResource("6_wxtai")]
+unique_name_in_owner = true
+visibility_layer = 3
+position = Vector2(-215, 113)
 
 [editable path="MaskNode"]

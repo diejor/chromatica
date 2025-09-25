@@ -1,9 +1,11 @@
-[gd_scene load_steps=6 format=3 uid="uid://rxiqf0u87fub"]
+[gd_scene load_steps=8 format=3 uid="uid://rxiqf0u87fub"]
 
 [ext_resource type="Script" uid="uid://cks2t5wvmcme8" path="res://nodes/statue/statue.gd" id="1_1wi8g"]
 [ext_resource type="PackedScene" uid="uid://d3nwc37sijhkr" path="res://nodes/saturation_mask/saturated_mask.tscn" id="1_7klxt"]
 [ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="1_yhkda"]
 [ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_swwfb"]
+[ext_resource type="Script" uid="uid://e7byyb2tq44k" path="res://nodes/statue/crystal.gd" id="3_67qxa"]
+[ext_resource type="Script" uid="uid://b3mrsrn6nh3fr" path="res://nodes/statue/lantern_light.gd" id="6_pcj5m"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wi8g"]
 radius = 11.0
@@ -55,9 +57,12 @@ position = Vector2(-14, -3)
 color = Color(0.76862746, 0.76862746, 0.76862746, 1)
 polygon = PackedVector2Array(559, 242, 559, 358, 669, 367, 662, 300, 624, 249)
 
-[node name="Star" type="Polygon2D" parent="Art/Knight"]
+[node name="Crystal" type="Polygon2D" parent="Art/Knight"]
+modulate = Color(2.454227, 2.454227, 2.454227, 1)
 position = Vector2(10, -55)
+color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(469, 325, 430, 365, 469, 406, 510, 363)
+script = ExtResource("3_67qxa")
 
 [node name="LeftArm" type="Polygon2D" parent="Art/Knight"]
 position = Vector2(950, -8)
@@ -78,6 +83,7 @@ polygon = PackedVector2Array(319.9997, 679.99963, 429.99966, 619.99963, 569.9996
 position = Vector2(1, -2)
 
 [node name="LanternLight" type="PointLight2D" parent="."]
-color = Color(0, 0, 0, 1)
+color = Color(1, 0, 0, 1)
 texture = ExtResource("2_swwfb")
 texture_scale = 3.0
+script = ExtResource("6_pcj5m")

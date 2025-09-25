@@ -395,6 +395,7 @@ rotation_smoothing_speed = 20.0
 
 [node name="Motor" type="Node" parent="."]
 script = ExtResource("2_1fmtd")
+DEBUG_MODE = true
 
 [node name="LanternComponent" type="Node2D" parent="."]
 script = ExtResource("3_fn53c")

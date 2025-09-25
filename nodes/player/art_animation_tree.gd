@@ -56,7 +56,6 @@ func _physics_process(delta: float) -> void:
 				accel_state = 1
 		else:
 			if input_dir == 0:
-				print(input_dir)
 				accel_state = 0
 		
 		if absf(v.x) < 25.0 and _is_stopping:

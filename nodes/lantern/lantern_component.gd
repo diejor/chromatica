@@ -30,6 +30,8 @@ func _process(_delta: float) -> void:
 			if was_active:
 				lantern_animator.play("expand_lantern")
 				is_lantern_active = true
+			
+			current_statue.switch()
 	
 func emit_lantern_signal(is_active: bool):
 	on_lantern_changed.emit(is_active, current_color)
@@ -38,4 +40,4 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 	current_statue = body
 
 func _on_interact_area_body_exited(body: Node2D) -> void:
-	current_statue = body
+	current_statue = null

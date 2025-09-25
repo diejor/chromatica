@@ -28,6 +28,8 @@ func _process(delta: float) -> void:
 
 func _integrate_forces(state: PhysicsDirectBodyState2D) -> void:
 	motor.step_physics(state, self)
+	if motor.DEBUG_MODE:
+		queue_redraw()
 
 func _draw() -> void:
 	motor.debug_draw(self)

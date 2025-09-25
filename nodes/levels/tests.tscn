@@ -1,3 +1,9 @@
-[gd_scene format=3 uid="uid://cs1ws1nags66"]
+[gd_scene load_steps=2 format=3 uid="uid://cs1ws1nags66"]
+
+[ext_resource type="Texture2D" uid="uid://dbgfykv5rwf3p" path="res://assets/green_block.png" id="1_0spuw"]
 
 [node name="Tests" type="Node2D"]
+
+[node name="PixilFrame0" type="Sprite2D" parent="."]
+position = Vector2(488, 347)
+texture = ExtResource("1_0spuw")

@@ -1,7 +1,10 @@
-[gd_scene format=3 uid="uid://c1mj4c47m7gus"]
+[gd_scene load_steps=2 format=3 uid="uid://c1mj4c47m7gus"]
+
+[ext_resource type="Script" uid="uid://db4ctvi003p73" path="res://nodes/lantern/lantern_art.gd" id="1_x3wnj"]
 
 [node name="LanternArt" type="Node2D"]
 use_parent_material = true
+script = ExtResource("1_x3wnj")
 
 [node name="Flame" type="Polygon2D" parent="."]
 use_parent_material = true
