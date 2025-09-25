@@ -286,7 +286,6 @@ _data = {
 [sub_resource type="AnimationNodeTimeScale" id="AnimationNodeTimeScale_5h4ma"]
 
 [sub_resource type="AnimationNodeBlendTree" id="AnimationNodeBlendTree_5h4ma"]
-graph_offset = Vector2(-395.51733, 14.735693)
 nodes/output/position = Vector2(192, 64)
 nodes/AnimationNodeStateMachine/node = ExtResource("6_5h4ma")
 nodes/AnimationNodeStateMachine/position = Vector2(-464, 96)
@@ -414,7 +413,7 @@ visibility_layer = 3
 show_behind_parent = true
 top_level = true
 visibility_layer = 3
-position = Vector2(-13, 0)
+position = Vector2(13, 0)
 script = ExtResource("7_xl06i")
 lerp_speed = 15.0
 player = NodePath("../..")
@@ -461,7 +460,8 @@ anim_player = NodePath("../ArtAnimationPlayer")
 parameters/AnimationNodeStateMachine/Movement/blend_position = Vector2(-0.9992334, 0.9821428)
 parameters/TimeScale/scale = 1.0
 script = ExtResource("6_hs1md")
-stop_threshold = 150.0
+accel_eps = 0.01
+stop_threshold = 100.0
 fall_animation_cooldown = 0.3
 
 [node name="FlipAnimationPlayer" type="AnimationPlayer" parent="Visuals/PlayerArt"]

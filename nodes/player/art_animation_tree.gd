@@ -55,7 +55,9 @@ func _physics_process(delta: float) -> void:
 			else:
 				accel_state = 1
 		else:
-			accel_state = 0
+			if input_dir == 0:
+				print(input_dir)
+				accel_state = 0
 		
 		if absf(v.x) < 25.0 and _is_stopping:
 			_is_stopping = false
@@ -63,7 +65,6 @@ func _physics_process(delta: float) -> void:
 		# Player has landed, stop falling
 		if is_falling and grounded and v.y < 0:
 			is_falling = false
-			print("Landed!")
 		
 	else:
 		if v.y > vy_eps and fall_timer == null:
@@ -100,7 +101,6 @@ func _physics_process(delta: float) -> void:
 		accel_state = -1
 		
 	var blend_state := Vector2(accel_state, 0.0 if grounded else 1.0)
-	print(blend_state)
 	set("parameters/AnimationNodeStateMachine/Movement/blend_position", blend_state)
 
 	_prev_v = v
