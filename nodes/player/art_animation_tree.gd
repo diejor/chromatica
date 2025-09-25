@@ -67,11 +67,9 @@ func _physics_process(delta: float) -> void:
 		
 	else:
 		if v.y > vy_eps and fall_timer == null:
-			# Player is falling and cooldown timer isn't active
 			fall_timer = get_tree().create_timer(fall_animation_cooldown, false, false)
 			fall_timer.timeout.connect(_on_fall_timer_timeout)
 		
-		# Now player is actually falling
 		if fall_timer != null and fall_timer.time_left < 0.001 and !grounded and v.y > vy_eps:
 			is_falling = true
 
@@ -97,6 +95,7 @@ func _physics_process(delta: float) -> void:
 		set("parameters/TimeScale/scale", speed_factor)
 	
 	if is_falling:
+		print("is falling!")
 		accel_state = -1
 		
 	var blend_state := Vector2(accel_state, 0.0 if grounded else 1.0)

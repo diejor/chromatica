@@ -1,3 +1,4 @@
+@tool
 extends Polygon2D
 
 @onready var crystal_color = color

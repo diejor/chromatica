@@ -20,7 +20,7 @@ signal on_ground_changed(on_ground: bool)
 @export var DAMPING_COEFFICIENT := 10.0
 @export var HORIZONTAL_TO_VERTICAL_RATIO := 0.0
 @export var AIR_CONTROL_MULTIPLIER := 1.0
-@export var HOVER_RAY_LENGTH := 20.0
+@export var HOVER_RAY_LENGTH := 25.0
 @export var HOVER_SPRING_CONSTANT := 1000.0
 @export var HOVER_DAMPING := 50.0
 @export var RIDE_HEIGHT := 15.0

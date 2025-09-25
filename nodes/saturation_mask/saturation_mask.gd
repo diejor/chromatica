@@ -1,6 +1,6 @@
 extends Maskable
 
-@onready var _mask_node: MaskNode = $"../MaskNode"
+@export var _mask_node: MaskNode
 
 func _ready() -> void:
 	var propagate = propagate_call.bind("_bind_uniforms", [_mask_node])

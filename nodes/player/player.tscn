@@ -395,7 +395,7 @@ rotation_smoothing_speed = 20.0
 
 [node name="Motor" type="Node" parent="."]
 script = ExtResource("2_1fmtd")
-DEBUG_MODE = true
+LINEAR_FORCE = 300.0
 
 [node name="LanternComponent" type="Node2D" parent="."]
 script = ExtResource("3_fn53c")
@@ -422,13 +422,15 @@ pos = Vector2(13, 0)
 
 [node name="LanternMask" type="Sprite2D" parent="Visuals/LanternArt"]
 show_behind_parent = true
-visibility_layer = 2
+visibility_layer = 7
 z_index = -1
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("2_khfle")
 
 [node name="LanternLight" type="PointLight2D" parent="Visuals/LanternArt"]
+visibility_layer = 7
 color = Color(1, 0, 0, 1)
+range_item_cull_mask = 7
 texture = ExtResource("2_khfle")
 texture_scale = 2.0
 
@@ -463,7 +465,7 @@ parameters/TimeScale/scale = 1.0
 script = ExtResource("6_hs1md")
 accel_eps = 0.01
 stop_threshold = 100.0
-fall_animation_cooldown = 0.3
+fall_animation_cooldown = 0.15
 
 [node name="FlipAnimationPlayer" type="AnimationPlayer" parent="Visuals/PlayerArt"]
 libraries = {
