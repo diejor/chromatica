@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cnqer40htfnm1" path="res://nodes/utils/interpolate.gd" id="7_xl06i"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_4raw8"]
+friction = 0.15
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1fmtd"]
 radius = 37.0
@@ -299,14 +300,20 @@ physics_material_override = SubResource("PhysicsMaterial_4raw8")
 script = ExtResource("1_4raw8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(2, 2)
 limit_enabled = false
+position_smoothing_enabled = true
 position_smoothing_speed = 8.0
 rotation_smoothing_speed = 16.0
 
 [node name="Motor" type="Node" parent="."]
 script = ExtResource("2_1fmtd")
-LINEAR_FORCE = 400.0
+LINEAR_FORCE = 300.0
 MAX_SPEED = 150.0
+JUMP_FORCE = 225.0
+WALL_JUMP_VERTICAL_MULTIPLIER = 1.0
+WALL_JUMP_HORIZONTAL_LIMIT = 100.0
+WALL_JUMP_MIN_UP_SPEED = 250.0
 POWER = 0.95
 
 [node name="LanternComponent" type="Node2D" parent="."]
@@ -372,11 +379,11 @@ parameters/AnimationNodeStateMachine/Movement/blend_position = Vector2(-0.999233
 parameters/TimeScale/scale = 1.0
 script = ExtResource("6_hs1md")
 accel_eps = 0.01
-stop_threshold = 100.0
+stop_threshold = 50.0
 fall_animation_cooldown = 0.15
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -5)
+position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_3hls8")
 
 [connection signal="body_entered" from="LanternComponent/InteractArea" to="LanternComponent" method="_on_interact_area_body_entered"]
