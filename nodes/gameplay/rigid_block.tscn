@@ -5,6 +5,7 @@
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fmb0c"]
 friction = 0.1
+rough = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmb0c"]
 size = Vector2(32, 32)

@@ -17,15 +17,12 @@ func _process(delta):
 
 	var target := p.global_transform * _local_xform
 
-	# Interpolate position and rotation normally
 	global_position = global_position.lerp(target.origin, lerp_speed * delta)
 	rotation = lerp_angle(rotation, target.get_rotation(), lerp_speed * delta)
 
-	# Handle scale separately to avoid mirroring/flip issues
 	var parent_flip = sign(p.scale.x)
 	var target_scale := target.get_scale()
 	
-	# Keep scale magnitude interpolated
 	scale.x = lerp(abs(scale.x), abs(target_scale.x), lerp_speed * delta) * parent_flip
 	scale.y = lerp(abs(scale.y), abs(target_scale.y), lerp_speed * delta)
 	

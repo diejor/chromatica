@@ -1,18 +1,17 @@
 class_name PlayerMotor
 extends Node
 
-
 signal jumped
 signal landed
 signal wall_jumped
 signal on_ground_changed(on_ground: bool)
 
-@export var LINEAR_FORCE := 500.0
-@export var MAX_SPEED := 200.0
-@export var JUMP_FORCE := 200.0
+@export var LINEAR_FORCE := 300.0
+@export var MAX_SPEED := 150.0
+@export var JUMP_FORCE := 215.0
 @export var WALL_JUMP_FORCE := 210.0
-@export var WALL_JUMP_VERTICAL_MULTIPLIER := 1.1
-@export var WALL_JUMP_HORIZONTAL_LIMIT := 125.0
+@export var WALL_JUMP_VERTICAL_MULTIPLIER := 1.0
+@export var WALL_JUMP_HORIZONTAL_LIMIT := 115.0
 @export var WALL_GRAB_GRAVITY_MULTIPLIER := 0.1
 @export var JUMP_HOVER_COOLDOWN := 0.2
 @export var DEBUG_MODE := false
@@ -25,15 +24,22 @@ signal on_ground_changed(on_ground: bool)
 @export var HOVER_DAMPING := 50.0
 @export var RIDE_HEIGHT := 7.0
 @export var HOVER_FORCE_MULTIPLIER := 0.5
-@export var COYOTE_TIME := 0.1
-@export var WALL_JUMP_MIN_UP_SPEED := 220.0
+@export var COYOTE_TIME := 0.5
+@export var JUMP_BUFFER_TIME := 0.12
+@export var GROUND_STICK_EPS := 0.15
 
-@export var POWER := 1.0
+# derive minimum up-speed from impulses (Δv = impulse / mass)
+@export var JUMP_MIN_UP_MULT := 1.0
+@export var WALL_JUMP_MIN_UP_MULT := 1.1
+
+@export var POWER := 0.95
 @export var MOVE_POWER_SCALE := 1.0
 @export var JUMP_POWER_SCALE := 1.0
 @export var WALL_POWER_SCALE := 1.0
 @export var SPEED_POWER_SCALE := 1.0
 @export var POWER_EXP := 1.0
+
+@onready var collision_shape = $"../CollisionShape2D"
 
 func _p(k: float, w: float = 1.0, e: float = POWER_EXP) -> float:
 	return k * pow(max(POWER * w, 0.0), e)
@@ -41,8 +47,16 @@ func _p(k: float, w: float = 1.0, e: float = POWER_EXP) -> float:
 func eff_linear_force() -> float: return _p(LINEAR_FORCE, MOVE_POWER_SCALE)
 func eff_jump_force() -> float: return _p(JUMP_FORCE, JUMP_POWER_SCALE)
 func eff_wall_jump_force() -> float: return _p(WALL_JUMP_FORCE, WALL_POWER_SCALE)
-func eff_wall_jump_min_up() -> float: return _p(WALL_JUMP_MIN_UP_SPEED, WALL_POWER_SCALE)
 func eff_max_speed() -> float: return _p(MAX_SPEED, SPEED_POWER_SCALE)
+
+func _mass(body: RigidBody2D) -> float:
+	return max(body.mass, 0.001)
+
+func eff_jump_min_up(body: RigidBody2D) -> float:
+	return (eff_jump_force() / _mass(body)) * JUMP_MIN_UP_MULT
+
+func eff_wall_jump_min_up(body: RigidBody2D) -> float:
+	return (eff_wall_jump_force() / _mass(body)) * WALL_JUMP_MIN_UP_MULT
 
 var _coyote_time_counter := 0.0
 var _last_ground_normal := Vector2.ZERO
@@ -53,19 +67,25 @@ var _contact_points: Array[Vector2] = []
 var _contact_normals: Array[Vector2] = []
 var _normal := Vector2.ZERO
 var _jump_requested := false
+var _jump_buffer := 0.0
 var _on_ground := false
 var _was_on_ground := false
 var _is_near_wall := false
 var _is_grabbing_wall := false
 var _hover_disabled := false
+var _no_coyote_until_landing := false
 
-# --- external triggers ---
 func request_jump() -> void:
 	_jump_requested = true
+	_jump_buffer = JUMP_BUFFER_TIME
 
-func step_process(_delta: float) -> void:
-	if Input.is_action_just_pressed("jump") and (_on_ground or _coyote_time_counter > 0.0 or _is_near_wall):
+func step_process(delta: float) -> void:
+	if Input.is_action_just_pressed("jump"):
 		_jump_requested = true
+		_jump_buffer = JUMP_BUFFER_TIME
+	_jump_buffer = max(0.0, _jump_buffer - delta)
+	if _jump_buffer == 0.0:
+		_jump_requested = false
 
 func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	_contact_points.clear()
@@ -92,24 +112,28 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	else:
 		_gravity_force = state.get_total_gravity()
 
-	# Hover / ground check via ray
+	# hover + true-ground detection
 	if not _hover_disabled:
 		var from := body.global_position
-		var to := from + Vector2.DOWN * HOVER_RAY_LENGTH
-		var space := body.get_world_2d().direct_space_state
-		var q := PhysicsRayQueryParameters2D.create(from, to)
-		var hit := space.intersect_ray(q)
+		var shape_rect = collision_shape.shape.get_rect()
+		var bottom_center := from + Vector2(shape_rect.size.x / 2, shape_rect.size.y / 2)
+		var to := bottom_center + Vector2.DOWN * HOVER_RAY_LENGTH
+		var space = body.get_world_2d().direct_space_state
+		var q = PhysicsRayQueryParameters2D.create(from, to)
+		var hit = space.intersect_ray(q)
 		if hit:
-			_on_ground = true
-			_contact_points.append(hit.position)
-			_contact_normals.append(hit.normal)
-			_is_grabbing_wall = false
-			_gravity_force = state.get_total_gravity()
-			state.apply_central_force(-_gravity_force)
-
 			var hit_point: Vector2 = hit.position
 			var distance := (hit_point - from).length()
 			var displacement := distance - RIDE_HEIGHT
+			var grounded_now := displacement <= GROUND_STICK_EPS
+
+			if grounded_now:
+				_on_ground = true
+				_contact_points.append(hit.position)
+				_contact_normals.append(hit.normal)
+				_is_grabbing_wall = false
+				_gravity_force = state.get_total_gravity()
+				state.apply_central_force(-_gravity_force)
 
 			var v := state.get_linear_velocity()
 			var ray_dir := Vector2.DOWN
@@ -119,7 +143,7 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 			var f_total := (f_spring + f_damp) * ray_dir * HOVER_FORCE_MULTIPLIER
 			state.apply_central_force(f_total)
 
-	# combine normals (downweight strong horizontals)
+	# Contact normal mix
 	_normal = Vector2.ZERO
 	for n in _contact_normals:
 		var w := 0.01 if abs(n.x) > 0.1 else 1.0
@@ -128,7 +152,7 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	if _on_ground:
 		_last_ground_normal = _normal
 
-	# drive force
+	# drive
 	var v_now := state.get_linear_velocity()
 	var hspeed := absf(v_now.x)
 	var factor = clamp(1.0 - (hspeed / eff_max_speed()), 0.0, 1.0)
@@ -148,7 +172,6 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 		var f_damp := -h * DAMPING_COEFFICIENT * damping_factor
 		state.apply_central_force(f_damp)
 
-	# slide along contact but keep intended magnitude
 	if _normal.length_squared() > 0.0:
 		var pre := _applied_force
 		_applied_force = _applied_force.slide(_normal)
@@ -166,36 +189,54 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 		v_now.x = 0.0
 		state.set_linear_velocity(v_now)
 
-	# jumps
-	if _jump_requested:
+	# jumps with buffering + coyote guard
+	var did_jump := false
+	if _jump_requested and _jump_buffer > 0.0:
 		if _on_ground:
-			_do_ground_jump(state)
-		elif _coyote_time_counter > 0.0:
-			_do_coyote_jump(state)
+			_do_ground_jump(state, body); did_jump = true
+		elif _coyote_time_counter > 0.0 and not _no_coyote_until_landing:
+			_do_coyote_jump(state, body); did_jump = true
 		elif _is_near_wall and _contact_normals.size() > 0:
-			_do_wall_jump(state)
-		_jump_requested = false
+			_do_wall_jump(state, body); did_jump = true
+		if did_jump:
+			_jump_requested = false
+			_jump_buffer = 0.0
 
-	# coyote timer
+	# coyote time: only when leaving ground without jumping
 	if not _on_ground:
-		_coyote_time_counter = max(0.0, _coyote_time_counter - state.get_step())
+		if _no_coyote_until_landing:
+			_coyote_time_counter = 0.0
+		else:
+			_coyote_time_counter = max(0.0, _coyote_time_counter - state.get_step())
 	else:
 		_coyote_time_counter = COYOTE_TIME
 
 	_velocity_last_frame = state.get_linear_velocity()
 
-	# land/takeoff signals
+	# ground change signals
 	if _on_ground != _was_on_ground:
 		on_ground_changed.emit(_on_ground)
 		if _on_ground:
+			_no_coyote_until_landing = false
 			landed.emit()
 
-# --- jump helpers ---
 func _disable_hover_temporarily(body: RigidBody2D) -> void:
 	_hover_disabled = true
 	body.get_tree().create_timer(JUMP_HOVER_COOLDOWN).timeout.connect(func(): _hover_disabled = false)
 
-func _do_ground_jump(state: PhysicsDirectBodyState2D) -> void:
+func _finish_jump_common(state: PhysicsDirectBodyState2D) -> void:
+	_no_coyote_until_landing = true
+	_coyote_time_counter = 0.0
+	_on_ground = false
+	_disable_hover_temporarily(owner)
+
+func _ensure_min_up_speed(state: PhysicsDirectBodyState2D, min_up: float) -> void:
+	var v := state.get_linear_velocity()
+	if v.y > -min_up:
+		v.y = -min_up
+	state.set_linear_velocity(v)
+
+func _do_ground_jump(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	state.apply_central_impulse(Vector2.UP * eff_jump_force())
 	var v := state.get_linear_velocity()
 	var vN := v.project(Vector2.UP)
@@ -204,24 +245,27 @@ func _do_ground_jump(state: PhysicsDirectBodyState2D) -> void:
 	v -= transfer
 	v += Vector2.UP * transfer.length() * 0.2
 	state.set_linear_velocity(v)
-	_disable_hover_temporarily(owner)
+	_ensure_min_up_speed(state, eff_jump_min_up(body))
+	_finish_jump_common(state)
 	jumped.emit()
 
-func _do_coyote_jump(state: PhysicsDirectBodyState2D) -> void:
+func _do_coyote_jump(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	state.apply_central_impulse(Vector2.UP * eff_jump_force())
-	_disable_hover_temporarily(owner)
+	_ensure_min_up_speed(state, eff_jump_min_up(body))
+	_finish_jump_common(state)
 	jumped.emit()
 
-func _do_wall_jump(state: PhysicsDirectBodyState2D) -> void:
+func _do_wall_jump(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	var wall_n := _contact_normals[0]
 	var ix = clamp(wall_n.x * eff_wall_jump_force(), -WALL_JUMP_HORIZONTAL_LIMIT, WALL_JUMP_HORIZONTAL_LIMIT)
 	var iy := -WALL_JUMP_VERTICAL_MULTIPLIER * eff_wall_jump_force()
 	state.apply_central_impulse(Vector2(ix, iy))
+	var min_up := eff_wall_jump_min_up(body)
 	var v := state.get_linear_velocity()
-	if v.y > -eff_wall_jump_min_up():
-		v.y = -eff_wall_jump_min_up()
+	if v.y > -min_up:
+		v.y = -min_up
 	state.set_linear_velocity(v)
-	_disable_hover_temporarily(owner)
+	_finish_jump_common(state)
 	wall_jumped.emit()
 
 var _dbg_applied := Vector2.ZERO

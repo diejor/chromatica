@@ -12,6 +12,7 @@ radius = 11.0
 height = 36.0
 
 [node name="Statue" type="StaticBody2D"]
+modulate = Color(0.735357, 0.735357, 0.735357, 1)
 visibility_layer = 7
 collision_layer = 2
 collision_mask = 2
@@ -59,7 +60,6 @@ color = Color(0.76862746, 0.76862746, 0.76862746, 1)
 polygon = PackedVector2Array(559, 242, 559, 358, 669, 367, 662, 300, 624, 249)
 
 [node name="Crystal" type="Polygon2D" parent="Art/Knight"]
-modulate = Color(1.353256, 1.353256, 1.353256, 1)
 position = Vector2(10, -55)
 color = Color(1, 0, 0, 1)
 polygon = PackedVector2Array(469, 325, 430, 365, 469, 406, 510, 363)
