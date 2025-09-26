@@ -1,4 +1,8 @@
-[gd_scene format=3 uid="uid://cs1ws1nags66"]
+[gd_scene load_steps=4 format=3 uid="uid://cs1ws1nags66"]
+
+[ext_resource type="Texture2D" uid="uid://drj2pygiim28w" path="res://assets/adve-tiles.png" id="2_mlvsb"]
+[ext_resource type="TileSet" uid="uid://cf07dmb8ag4hd" path="res://nodes/levels/tileset.tres" id="3_acaxh"]
+[ext_resource type="PackedScene" uid="uid://dfodrofh2ybv1" path="res://nodes/player/player.tscn" id="4_mlvsb"]
 
 [node name="Tests" type="Control"]
 layout_mode = 3
@@ -7,3 +11,15 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="AdveTiles" type="Sprite2D" parent="."]
+position = Vector2(-1279, 418)
+texture = ExtResource("2_mlvsb")
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+self_modulate = Color(1, 1, 1, 0.58431375)
+tile_map_data = PackedByteArray(0, 0, 85, 255, 45, 0, 0, 0, 5, 0, 1, 0, 0, 0, 85, 255, 46, 0, 0, 0, 5, 0, 5, 0, 0, 0, 85, 255, 40, 0, 0, 0, 5, 0, 5, 0, 0, 0)
+tile_set = ExtResource("3_acaxh")
+
+[node name="Player" parent="." instance=ExtResource("4_mlvsb")]
+position = Vector2(-1355, 408)

@@ -1,6 +1,6 @@
 @tool
 class_name Statue
-extends Maskable
+extends Node2D
 
 @export var lantern_color: LanternColor.LanternColors
 var is_active = true

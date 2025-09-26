@@ -1,7 +1,6 @@
 shader_type canvas_item;
 
-// ===== mask input =====
-uniform sampler2D mask_tex;
+global uniform sampler2D MASK_TEXTURE;
 
 // ===== desat controls =====
 uniform float desat_strength : hint_range(0.0, 2.0) = 1.0;
@@ -19,12 +18,12 @@ uniform bool keep_ignore_modulate = false;
 uniform bool invert_mask = false;
 
 float read_mask(vec2 uv) {
-    vec4 c = texture(mask_tex, uv);
+    vec4 c = texture(MASK_TEXTURE, uv);
     return mask_uses_alpha ? c.a : c.r; // 1 = inside, 0 = outside
 }
 
 float mask_factor_from_screen_uv(vec2 fragcoord_xy) {
-    vec2 mask_sz = vec2(textureSize(mask_tex, 0));
+    vec2 mask_sz = vec2(textureSize(MASK_TEXTURE, 0));
     vec2 mask_uv = fragcoord_xy / mask_sz;
 
     float a = clamp(read_mask(mask_uv), 0.0, 1.0);

@@ -10,7 +10,6 @@ extends AnimationTree
 @export var flip_forward_faces_left := true
 @export var stop_threshold := 10.0  # Velocity threshold for stop animation
 
-@onready var flip_animation: AnimationPlayer = $"../FlipAnimationPlayer"
 @onready var player_animation: AnimationPlayer = $"../ArtAnimationPlayer"
 
 var _prev_v := Vector2.ZERO
@@ -80,18 +79,18 @@ func _physics_process(delta: float) -> void:
 	if v.x >  speed_eps: desired_dir =  1
 	elif v.x < -speed_eps: desired_dir = -1
 
-	if flip_animation and desired_dir != 0 and desired_dir != _face_dir:
+	if desired_dir != 0 and desired_dir != _face_dir:
 		var want_forward := (desired_dir == -1) == flip_forward_faces_left
 		if want_forward:
-			flip_animation.play("flip")
+			$"../..".scale.x = -1.0
 		else:
-			flip_animation.play_backwards("flip")
+			$"../..".scale.x = 1.0
 		_face_dir = desired_dir
 	
 	if absf(v.x) < 25.0:
 		set("parameters/TimeScale/scale", 1.0)
 	else:
-		var speed_factor = pow(v.x / 100.0, 2)
+		var speed_factor =v.x / 75.
 		set("parameters/TimeScale/scale", speed_factor)
 	
 	if is_falling:
