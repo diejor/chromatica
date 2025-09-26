@@ -2,7 +2,6 @@ shader_type canvas_item;
 
 // ===== mask input =====
 uniform sampler2D mask_tex;
-uniform bool mask_flip_y = false;
 
 // ===== desat controls =====
 uniform float desat_strength : hint_range(0.0, 2.0) = 1.0;
@@ -27,7 +26,6 @@ float read_mask(vec2 uv) {
 float mask_factor_from_screen_uv(vec2 fragcoord_xy) {
     vec2 mask_sz = vec2(textureSize(mask_tex, 0));
     vec2 mask_uv = fragcoord_xy / mask_sz;
-    if (mask_flip_y) mask_uv.y = 1.0 - mask_uv.y;
 
     float a = clamp(read_mask(mask_uv), 0.0, 1.0);
 

@@ -6,10 +6,12 @@
 script = ExtResource("1_8rwv5")
 
 [node name="MaskViewport" type="SubViewport" parent="."]
-disable_3d = true
-transparent_bg = true
+handle_input_locally = false
+anisotropic_filtering_level = 0
+canvas_item_default_texture_filter = 0
+positional_shadow_atlas_16_bits = false
 canvas_cull_mask = 2
-size = Vector2i(1020, 583)
+size = Vector2i(1170, 585)
 
 [node name="MaskCamera" type="Camera2D" parent="MaskViewport"]
 anchor_mode = 0

@@ -21,7 +21,7 @@ script = ExtResource("1_1wi8g")
 shape = SubResource("CapsuleShape2D_1wi8g")
 
 [node name="SaturatedMask" parent="." instance=ExtResource("1_7klxt")]
-visibility_layer = 7
+visibility_layer = 3
 scale = Vector2(3, 3)
 
 [node name="Art" type="Node2D" parent="."]
@@ -85,8 +85,6 @@ position = Vector2(1, -2)
 
 [node name="LanternLight" type="PointLight2D" parent="."]
 color = Color(1, 0, 0, 1)
-energy = 2.0
-range_item_cull_mask = 7
 texture = ExtResource("2_swwfb")
 texture_scale = 3.0
 script = ExtResource("6_pcj5m")

@@ -56,7 +56,7 @@ func _physics_process(delta: float) -> void:
 				accel_state = 1
 		else:
 			if input_dir == 0:
-				accel_state = 0
+				accel_state = 0																																																																																																										
 		
 		if absf(v.x) < 25.0 and _is_stopping:
 			_is_stopping = false
@@ -95,7 +95,6 @@ func _physics_process(delta: float) -> void:
 		set("parameters/TimeScale/scale", speed_factor)
 	
 	if is_falling:
-		print("is falling!")
 		accel_state = -1
 		
 	var blend_state := Vector2(accel_state, 0.0 if grounded else 1.0)

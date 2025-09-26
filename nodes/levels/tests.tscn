@@ -1,6 +1,4 @@
-[gd_scene load_steps=2 format=3 uid="uid://cs1ws1nags66"]
-
-[ext_resource type="PackedScene" uid="uid://c3krt76nlapyv" path="res://nodes/levels/main.tscn" id="1_0spuw"]
+[gd_scene format=3 uid="uid://cs1ws1nags66"]
 
 [node name="Tests" type="Control"]
 layout_mode = 3
@@ -9,21 +7,3 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-stretch = true
-stretch_shrink = 4
-
-[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
-handle_input_locally = false
-canvas_item_default_texture_filter = 0
-size = Vector2i(288, 162)
-render_target_update_mode = 4
-
-[node name="Main" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_0spuw")]
