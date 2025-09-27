@@ -376,7 +376,7 @@ accel_eps = 0.01
 
 [node name="LanternComponent" type="Node2D" parent="."]
 script = ExtResource("3_fn53c")
-current_color = 1
+current_color = 7
 
 [node name="StatueArea" type="Area2D" parent="LanternComponent"]
 collision_layer = 2
@@ -399,6 +399,7 @@ visibility_layer = 3
 visibility_layer = 3
 position = Vector2(8, 0)
 script = ExtResource("7_xl06i")
+lerp_speed = 10.0
 
 [node name="Lantern" parent="PlayerVisuals/InterpolateLantern" instance=ExtResource("5_j4qgx")]
 
@@ -421,8 +422,7 @@ parameters/TimeScale/scale = 1.0
 
 [node name="CrystalPouch" parent="PlayerVisuals" instance=ExtResource("10_2xyxk")]
 position = Vector2(-4, 2)
-spawn_radius = 4.0
-fly_time = 2.0
+spawn_radius = 2.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)

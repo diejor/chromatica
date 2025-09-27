@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://kc52v0lgqyqk" path="res://nodes/lantern/lantern.gd" id="1_01s3m"]
 [ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_ikmjt"]
-[ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="3_5d8ai"]
 [ext_resource type="Script" uid="uid://b3mrsrn6nh3fr" path="res://nodes/lantern/lantern_light.gd" id="3_ikmjt"]
+[ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="4_ikmjt"]
 
 [sub_resource type="Animation" id="Animation_ikmjt"]
 length = 0.001
@@ -22,26 +22,38 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("LanterArt/Flame:color")
+tracks/1/path = NodePath("LanternLight:texture_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Color(0.17641911, 0.17641908, 0.17641908, 1)]
+"values": [2.0]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("LanternLight:texture_scale")
+tracks/2/path = NodePath("LanterArt/Flame:color")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [2.0]
+"values": [Color(0.17641911, 0.17641908, 0.17641908, 1)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LanterArt/Flame:modulate")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
 }
 
 [sub_resource type="Animation" id="Animation_01s3m"]
@@ -62,34 +74,22 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("LanterArt/Flame:color")
+tracks/1/path = NodePath("LanternLight:texture_scale")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.2),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Color(0.1764706, 0.1764706, 0.1764706, 1), Color(0.8828013, 0.88280123, 0.8828012, 1)]
+"values": [2.0, 8.0]
 }
-tracks/2/type = "value"
+tracks/2/type = "method"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("LanternLight:texture_scale")
+tracks/2/path = NodePath(".")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [2.0, 8.0]
-}
-tracks/3/type = "method"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath(".")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
 "times": PackedFloat32Array(0.033333335, 0.13333334),
 "transitions": PackedFloat32Array(1, 1),
 "values": [{
@@ -99,6 +99,30 @@ tracks/3/keys = {
 "args": [true],
 "method": &"emit_lantern_signal"
 }]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("LanterArt/Flame:color")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.17641911, 0.17641908, 0.17641908, 1), Color(0.8758882, 0.8758883, 0.8758882, 1)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("LanterArt/Flame:modulate")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(2.1168277, 2.1168277, 2.1168277, 1)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_5d8ai"]
@@ -128,14 +152,14 @@ texture = ExtResource("2_ikmjt")
 texture_scale = 2.0
 script = ExtResource("3_ikmjt")
 
-[node name="LanterArt" parent="." instance=ExtResource("3_5d8ai")]
-
-[node name="Flame" parent="LanterArt" index="0"]
-color = Color(0.17641911, 0.17641908, 0.17641908, 1)
-
 [node name="LanternAnimations" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_5d8ai")
 }
+
+[node name="LanterArt" parent="." instance=ExtResource("4_ikmjt")]
+
+[node name="Flame" parent="LanterArt" index="0"]
+color = Color(0.17641911, 0.17641908, 0.17641908, 1)
 
 [editable path="LanterArt"]

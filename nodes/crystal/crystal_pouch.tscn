@@ -5,8 +5,8 @@
 
 [node name="CrystalPouch" type="Node2D"]
 script = ExtResource("1_hl1kw")
+spawn_radius = 1.0
 
 [node name="InterpolatePouch" type="Node2D" parent="."]
 top_level = true
 script = ExtResource("1_gvwho")
-lerp_speed = 5.0

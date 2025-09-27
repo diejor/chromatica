@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn1qmil7t4skg"]
+
+[ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="1_eupig"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qho3g"]
+atlas = ExtResource("1_eupig")
+region = Rect2(64, 208, 16, 16)
+
+[node name="BlueGem" type="Sprite2D"]
+texture = SubResource("AtlasTexture_qho3g")

@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://cs1ws1nags66"]
+[gd_scene load_steps=6 format=3 uid="uid://cs1ws1nags66"]
 
 [ext_resource type="Texture2D" uid="uid://drj2pygiim28w" path="res://assets/adve-tiles.png" id="2_mlvsb"]
 [ext_resource type="TileSet" uid="uid://cf07dmb8ag4hd" path="res://nodes/levels/tileset.tres" id="3_acaxh"]
 [ext_resource type="Texture2D" uid="uid://5wocha4bhow3" path="res://assets/satiro-Sheet v1.1.png" id="4_acaxh"]
 [ext_resource type="PackedScene" uid="uid://dfodrofh2ybv1" path="res://nodes/player/player.tscn" id="4_mlvsb"]
+[ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="5_acaxh"]
 
 [node name="Tests" type="Control"]
 layout_mode = 3
@@ -14,8 +15,7 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AdveTiles" type="Sprite2D" parent="."]
-modulate = Color(0, 1, 1, 1)
-position = Vector2(-1097, 375)
+position = Vector2(-1524, 291)
 texture = ExtResource("2_mlvsb")
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
@@ -27,5 +27,9 @@ tile_set = ExtResource("3_acaxh")
 position = Vector2(-1355, 408)
 
 [node name="SatiroSheetV1_1" type="Sprite2D" parent="."]
-position = Vector2(-1399, 393)
+position = Vector2(-1273, 373)
 texture = ExtResource("4_acaxh")
+
+[node name="Chromatica2" type="Sprite2D" parent="."]
+position = Vector2(-1778, 488)
+texture = ExtResource("5_acaxh")

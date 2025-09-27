@@ -3,7 +3,7 @@ class_name Statue
 extends Node2D
 
 @onready var lantern = $Art/Lantern
-@onready var crystal = $Art/Knight/Crystal
+@onready var crystal = $Art/Crystal
 
 @export var lantern_color: LanternColor.LanternColors
 @export var is_active = true

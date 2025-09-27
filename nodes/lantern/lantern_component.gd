@@ -50,7 +50,10 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 		if crystal.initial_color == current_statue.lantern_color and not current_statue.is_active:
 			crystal_pouch.pouch.remove_child(crystal)
 			var interpolable = Interpolable.new()
-			interpolable.global_position = crystal_pouch.global_position
+			interpolable.ignore_local = true
+			interpolable.show_behind_parent = true
+			interpolable.position = crystal_pouch.pouch.position
+			
 			interpolable.add_child(crystal)
 			current_statue.crystal.add_child(interpolable)
 			sfx_player.play("crystal_released")

@@ -1,0 +1,43 @@
+[gd_scene load_steps=10 format=3 uid="uid://d2cnnmwe253vu"]
+
+[ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="1_km1l4"]
+[ext_resource type="Script" uid="uid://b7p7tmrm7frii" path="res://nodes/crystal/crystal_gem.gd" id="2_5oaxd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcj5m"]
+atlas = ExtResource("1_km1l4")
+region = Rect2(32, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5s2m"]
+atlas = ExtResource("1_km1l4")
+region = Rect2(32, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oaxd"]
+atlas = ExtResource("1_km1l4")
+region = Rect2(64, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fqgv6"]
+atlas = ExtResource("1_km1l4")
+region = Rect2(48, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cady"]
+atlas = ExtResource("1_km1l4")
+region = Rect2(80, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xb35"]
+atlas = ExtResource("1_km1l4")
+region = Rect2(32, 240, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nhcbd"]
+atlas = ExtResource("1_km1l4")
+region = Rect2(32, 224, 16, 16)
+
+[node name="CrystalGem" type="Sprite2D"]
+texture = SubResource("AtlasTexture_pcj5m")
+script = ExtResource("2_5oaxd")
+_color = 1
+red_gem = SubResource("AtlasTexture_x5s2m")
+blue_gem = SubResource("AtlasTexture_5oaxd")
+green_gem = SubResource("AtlasTexture_fqgv6")
+purple_gem = SubResource("AtlasTexture_4cady")
+yellow_gem = SubResource("AtlasTexture_1xb35")
+cyan_gem = SubResource("AtlasTexture_nhcbd")
