@@ -1,18 +1,11 @@
 @tool
 extends Polygon2D
 
-@onready var crystal_color = color
-var is_active = true
+@export var initial_color: LanternColor.LanternColors
 
-func update_color(_color: Color):
-	crystal_color = _color
-	if is_active:
-		turn_on()
+func _ready() -> void:
+	color = LanternColor.enum_to_color(initial_color)
 
-func turn_off():
-	color = Color.BLACK
-	is_active = false
-	
-func turn_on():
-	color = crystal_color
-	is_active = true
+func update_color(new_color: Color):
+	color = new_color
+	initial_color = LanternColor.color_to_enum(new_color)

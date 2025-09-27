@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://bemfqhc7qs4qv"]
+
+[ext_resource type="Script" uid="uid://kc52v0lgqyqk" path="res://nodes/lantern/lantern.gd" id="1_01s3m"]
+[ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_ikmjt"]
+[ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="3_5d8ai"]
+[ext_resource type="Script" uid="uid://b3mrsrn6nh3fr" path="res://nodes/lantern/lantern_light.gd" id="3_ikmjt"]
+
+[sub_resource type="Animation" id="Animation_ikmjt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LanternMask:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.75, 0.75)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LanterArt/Flame:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0.17641911, 0.17641908, 0.17641908, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LanternLight:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+
+[sub_resource type="Animation" id="Animation_01s3m"]
+resource_name = "expand_lantern"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("LanternMask:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.75, 0.75), Vector2(5, 5)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("LanterArt/Flame:color")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0.1764706, 0.1764706, 0.1764706, 1), Color(0.8828013, 0.88280123, 0.8828012, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LanternLight:texture_scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 8.0]
+}
+tracks/3/type = "method"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.033333335, 0.13333334),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [false],
+"method": &"emit_lantern_signal"
+}, {
+"args": [true],
+"method": &"emit_lantern_signal"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5d8ai"]
+_data = {
+&"RESET": SubResource("Animation_ikmjt"),
+&"expand_lantern": SubResource("Animation_01s3m")
+}
+
+[node name="Lantern" type="Node2D"]
+visibility_layer = 3
+script = ExtResource("1_01s3m")
+
+[node name="LanternMask" type="Sprite2D" parent="."]
+show_behind_parent = true
+visibility_layer = 3
+z_index = -100
+z_as_relative = false
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_ikmjt")
+
+[node name="LanternLight" type="PointLight2D" parent="."]
+visibility_layer = 3
+color = Color(0, 0, 1, 1)
+energy = 0.5
+range_item_cull_mask = 7
+texture = ExtResource("2_ikmjt")
+texture_scale = 2.0
+script = ExtResource("3_ikmjt")
+
+[node name="LanterArt" parent="." instance=ExtResource("3_5d8ai")]
+
+[node name="Flame" parent="LanterArt" index="0"]
+color = Color(0.17641911, 0.17641908, 0.17641908, 1)
+
+[node name="LanternAnimations" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_5d8ai")
+}
+
+[editable path="LanterArt"]

@@ -39,8 +39,6 @@ signal on_ground_changed(on_ground: bool)
 @export var SPEED_POWER_SCALE := 1.0
 @export var POWER_EXP := 1.0
 
-@onready var collision_shape = $"../CollisionShape2D"
-
 func _p(k: float, w: float = 1.0, e: float = POWER_EXP) -> float:
 	return k * pow(max(POWER * w, 0.0), e)
 
@@ -115,12 +113,10 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	# hover + true-ground detection
 	if not _hover_disabled:
 		var from := body.global_position
-		var shape_rect = collision_shape.shape.get_rect()
-		var bottom_center := from + Vector2(shape_rect.size.x / 2, shape_rect.size.y / 2)
-		var to := bottom_center + Vector2.DOWN * HOVER_RAY_LENGTH
-		var space = body.get_world_2d().direct_space_state
-		var q = PhysicsRayQueryParameters2D.create(from, to)
-		var hit = space.intersect_ray(q)
+		var to := from + Vector2.DOWN * HOVER_RAY_LENGTH
+		var space := body.get_world_2d().direct_space_state
+		var q := PhysicsRayQueryParameters2D.create(from, to)
+		var hit := space.intersect_ray(q)
 		if hit:
 			var hit_point: Vector2 = hit.position
 			var distance := (hit_point - from).length()
@@ -143,7 +139,7 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 			var f_total := (f_spring + f_damp) * ray_dir * HOVER_FORCE_MULTIPLIER
 			state.apply_central_force(f_total)
 
-	# Contact normal mix
+	# contact normal mix
 	_normal = Vector2.ZERO
 	for n in _contact_normals:
 		var w := 0.01 if abs(n.x) > 0.1 else 1.0
@@ -224,7 +220,7 @@ func _disable_hover_temporarily(body: RigidBody2D) -> void:
 	_hover_disabled = true
 	body.get_tree().create_timer(JUMP_HOVER_COOLDOWN).timeout.connect(func(): _hover_disabled = false)
 
-func _finish_jump_common(state: PhysicsDirectBodyState2D) -> void:
+func _finish_jump_common(_state: PhysicsDirectBodyState2D) -> void:
 	_no_coyote_until_landing = true
 	_coyote_time_counter = 0.0
 	_on_ground = false

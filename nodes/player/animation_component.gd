@@ -5,7 +5,7 @@ extends Node
 @onready var player_animation: AnimationPlayer = $"../PlayerVisuals/PlayerArt/ArtAnimationPlayer"
 @onready var animation_tree: AnimationTree = $"../PlayerVisuals/PlayerArt/ArtAnimationTree"
 @onready var player_visuals = $"../PlayerVisuals"
-@onready var jump_player = $"../JumpPlayer"
+@onready var jump_player = $"../SFX/JumpPlayer"
 
 @export var accel_eps := 0.5
 @export var speed_eps := 0.5
@@ -126,18 +126,5 @@ func _sgn_eps(x: float, eps: float) -> int:
 	if x < -eps: return -1
 	return 0
 
-
 func _on_motor_jumped() -> void:
 	jump_player.play("jump")
-
-
-func _on_motor_landed() -> void:
-	print("landed")
-
-
-func _on_motor_wall_jumped() -> void:
-	print("wall jump")
-
-
-func _on_motor_on_physical_contact() -> void:
-	print("contact")

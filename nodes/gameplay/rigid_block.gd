@@ -8,7 +8,7 @@ func _ready() -> void:
 	mass = default_mass * 10.
 
 func on_lantern_changed(is_active: bool, color: LanternColor.LanternColors):
-	if is_active and color == LanternColor.LanternColors.GREEN:
+	if is_active and LanternColor.enum_has_color(color, Color.GREEN):
 		mass = default_mass
 	else:
 		mass = default_mass * 10.

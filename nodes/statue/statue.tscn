@@ -1,22 +1,20 @@
-[gd_scene load_steps=8 format=3 uid="uid://rxiqf0u87fub"]
+[gd_scene load_steps=6 format=3 uid="uid://rxiqf0u87fub"]
 
 [ext_resource type="Script" uid="uid://cks2t5wvmcme8" path="res://nodes/statue/statue.gd" id="1_1wi8g"]
 [ext_resource type="PackedScene" uid="uid://d3nwc37sijhkr" path="res://nodes/saturation_mask/saturated_mask.tscn" id="1_7klxt"]
-[ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="1_yhkda"]
-[ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_swwfb"]
-[ext_resource type="Script" uid="uid://e7byyb2tq44k" path="res://nodes/statue/crystal.gd" id="3_67qxa"]
-[ext_resource type="Script" uid="uid://b3mrsrn6nh3fr" path="res://nodes/statue/lantern_light.gd" id="6_pcj5m"]
+[ext_resource type="PackedScene" uid="uid://ios5ai7h3tl0" path="res://nodes/lantern/crystal.tscn" id="3_pcj5m"]
+[ext_resource type="PackedScene" uid="uid://bemfqhc7qs4qv" path="res://nodes/lantern/lantern.tscn" id="4_1wi8g"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wi8g"]
 radius = 11.0
 height = 36.0
 
 [node name="Statue" type="StaticBody2D"]
-modulate = Color(0.735357, 0.735357, 0.735357, 1)
-visibility_layer = 7
+visibility_layer = 3
 collision_layer = 2
 collision_mask = 2
 script = ExtResource("1_1wi8g")
+lantern_color = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CapsuleShape2D_1wi8g")
@@ -59,11 +57,10 @@ position = Vector2(-14, -3)
 color = Color(0.76862746, 0.76862746, 0.76862746, 1)
 polygon = PackedVector2Array(559, 242, 559, 358, 669, 367, 662, 300, 624, 249)
 
-[node name="Crystal" type="Polygon2D" parent="Art/Knight"]
-position = Vector2(10, -55)
+[node name="Crystal" parent="Art/Knight" instance=ExtResource("3_pcj5m")]
+modulate = Color(4.415934, 4.415934, 4.415934, 1)
+position = Vector2(480, 300)
 color = Color(1, 0, 0, 1)
-polygon = PackedVector2Array(469, 325, 430, 365, 469, 406, 510, 363)
-script = ExtResource("3_67qxa")
 
 [node name="LeftArm" type="Polygon2D" parent="Art/Knight"]
 position = Vector2(950, -8)
@@ -80,11 +77,4 @@ position = Vector2(19.999693, -0.00030517575)
 color = Color(0.31764707, 0.3764706, 0.28627452, 1)
 polygon = PackedVector2Array(319.9997, 679.99963, 429.99966, 619.99963, 569.99963, 699.99963, 649.99963, 619.99963, 719.99963, 749.99963, 649.99963, 819.99963, 269.9997, 819.99963, 229.99968, 679.99963, 259.9997, 599.99963)
 
-[node name="Lantern" parent="Art" instance=ExtResource("1_yhkda")]
-position = Vector2(1, -2)
-
-[node name="LanternLight" type="PointLight2D" parent="."]
-color = Color(1, 0, 0, 1)
-texture = ExtResource("2_swwfb")
-texture_scale = 3.0
-script = ExtResource("6_pcj5m")
+[node name="Lantern" parent="Art" instance=ExtResource("4_1wi8g")]

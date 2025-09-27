@@ -1,3 +1,4 @@
+class_name Interpolable
 extends Node2D
 
 @export var lerp_speed: float = 10.0

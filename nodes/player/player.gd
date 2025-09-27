@@ -20,8 +20,6 @@ func _ready() -> void:
 	motor.landed.connect(landed.emit)
 	motor.wall_jumped.connect(wall_jumped.emit)
 	motor.on_ground_changed.connect(on_ground_changed.emit)
-	
-	lantern.on_lantern_changed.connect(on_lantern_changed.emit)
 
 func _process(delta: float) -> void:
 	motor.step_process(delta)

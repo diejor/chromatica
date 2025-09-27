@@ -13,6 +13,8 @@ config_version=5
 config/name="chromatica"
 run/main_scene="uid://c3krt76nlapyv"
 config/features=PackedStringArray("4.5", "GL Compatibility")
+boot_splash/use_filter=false
+boot_splash/image="uid://dbgfykv5rwf3p"
 config/icon="res://icon.svg"
 
 [display]
