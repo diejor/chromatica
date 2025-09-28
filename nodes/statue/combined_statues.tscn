@@ -1,0 +1,130 @@
+[gd_scene load_steps=11 format=3 uid="uid://dy51um1k0yulf"]
+
+[ext_resource type="Script" uid="uid://cu4ff27h0cd04" path="res://nodes/statue/combined_statues.gd" id="1_ym82p"]
+[ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="3_nsgvs"]
+[ext_resource type="AudioStream" uid="uid://b5ctss2ngnpqg" path="res://assets/sfx/crystal-found.mp3" id="5_yq0i1"]
+[ext_resource type="PackedScene" uid="uid://rxiqf0u87fub" path="res://nodes/statue/statue.tscn" id="6_adq0e"]
+
+[sub_resource type="Animation" id="Animation_67qxa"]
+resource_name = "crystal_received"
+length = 3.2
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StatueSFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("5_yq0i1")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pcj5m"]
+_data = {
+&"crystal_received": SubResource("Animation_67qxa")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6pkn"]
+atlas = ExtResource("3_nsgvs")
+region = Rect2(188, 264, 38, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5oaxd"]
+atlas = ExtResource("3_nsgvs")
+region = Rect2(64, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvpi7"]
+atlas = ExtResource("3_nsgvs")
+region = Rect2(230, 264, 38, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4cady"]
+atlas = ExtResource("3_nsgvs")
+region = Rect2(80, 208, 16, 16)
+
+[node name="CombinedStatues" type="Node2D"]
+visibility_layer = 3
+script = ExtResource("1_ym82p")
+
+[node name="StatuePlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pcj5m")
+}
+
+[node name="StatueSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
+[node name="First" parent="." instance=ExtResource("6_adq0e")]
+self_modulate = Color(0.735357, 0.735357, 0.735357, 1)
+position = Vector2(13, -21)
+lantern_color = 4
+is_active = false
+makes_lantern_change = false
+
+[node name="Chromatica" parent="First/Art" index="0"]
+texture = SubResource("AtlasTexture_q6pkn")
+_color = 4
+
+[node name="LanternLight" parent="First/Art/Lantern" index="1"]
+color = Color(0, 0, 1, 1)
+energy = 0.1
+
+[node name="LanterArt" parent="First/Art/Lantern" index="3"]
+visible = true
+
+[node name="Crystal" parent="First/Art" index="2"]
+position = Vector2(-1, -7)
+texture = SubResource("AtlasTexture_5oaxd")
+_color = 4
+
+[node name="Second" parent="." instance=ExtResource("6_adq0e")]
+self_modulate = Color(0.735357, 0.735357, 0.735357, 1)
+position = Vector2(-17, -19)
+is_active = false
+makes_lantern_change = false
+
+[node name="LanternLight" parent="Second/Art/Lantern" index="1"]
+energy = 0.1
+
+[node name="LanterArt" parent="Second/Art/Lantern" index="3"]
+visible = true
+
+[node name="Crystal" parent="Second/Art" index="2"]
+position = Vector2(-1, -7)
+
+[node name="CollisionShape2D" parent="Second" index="2"]
+visible = true
+
+[node name="Combined" parent="." instance=ExtResource("6_adq0e")]
+position = Vector2(-2, -20)
+lantern_color = 5
+is_active = false
+
+[node name="Chromatica" parent="Combined/Art" index="0"]
+texture = SubResource("AtlasTexture_xvpi7")
+_color = 5
+
+[node name="LanternLight" parent="Combined/Art/Lantern" index="1"]
+color = Color(1, 0, 1, 1)
+energy = 0.1
+
+[node name="LanterArt" parent="Combined/Art/Lantern" index="3"]
+visible = true
+
+[node name="Crystal" parent="Combined/Art" index="2"]
+position = Vector2(-1, -7)
+texture = SubResource("AtlasTexture_4cady")
+_color = 5
+
+[editable path="First"]
+[editable path="First/Art/Lantern"]
+[editable path="First/Art/Lantern/LanterArt"]
+[editable path="Second"]
+[editable path="Second/Art/Lantern"]
+[editable path="Second/Art/Lantern/LanterArt"]
+[editable path="Combined"]
+[editable path="Combined/Art/Lantern"]
+[editable path="Combined/Art/Lantern/LanterArt"]

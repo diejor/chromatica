@@ -1,14 +1,40 @@
-[gd_scene load_steps=9 format=3 uid="uid://rxiqf0u87fub"]
+[gd_scene load_steps=19 format=3 uid="uid://rxiqf0u87fub"]
 
 [ext_resource type="Script" uid="uid://cks2t5wvmcme8" path="res://nodes/statue/statue.gd" id="1_1wi8g"]
 [ext_resource type="PackedScene" uid="uid://d3nwc37sijhkr" path="res://nodes/saturation_mask/saturated_mask.tscn" id="1_7klxt"]
 [ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="3_1wi8g"]
 [ext_resource type="PackedScene" uid="uid://bemfqhc7qs4qv" path="res://nodes/lantern/lantern.tscn" id="4_1wi8g"]
+[ext_resource type="Script" uid="uid://eoc4ej42acna" path="res://nodes/statue/chromatica.gd" id="4_dffav"]
+[ext_resource type="AudioStream" uid="uid://b5ctss2ngnpqg" path="res://assets/sfx/crystal-found.mp3" id="6_pcj5m"]
 [ext_resource type="PackedScene" uid="uid://d2cnnmwe253vu" path="res://nodes/crystal/crystal_gem.tscn" id="7_dffav"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_67qxa"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_str11"]
 atlas = ExtResource("3_1wi8g")
-region = Rect2(144, 208, 48, 64)
+region = Rect2(150, 210, 38, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6pkn"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(188, 264, 38, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu3xp"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(147, 264, 38, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvpi7"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(230, 264, 38, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hjm6"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(230, 210, 38, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7j3f"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(188, 210, 38, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5s2m"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(32, 208, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dffav"]
 atlas = ExtResource("3_1wi8g")
@@ -17,6 +43,30 @@ region = Rect2(32, 224, 16, 16)
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wi8g"]
 radius = 17.0
 height = 50.0
+
+[sub_resource type="Animation" id="Animation_67qxa"]
+resource_name = "crystal_received"
+length = 3.2
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StatueSFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_pcj5m")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pcj5m"]
+_data = {
+&"crystal_received": SubResource("Animation_67qxa")
+}
 
 [node name="Statue" type="StaticBody2D"]
 visibility_layer = 3
@@ -34,16 +84,43 @@ scale = Vector2(3, 3)
 [node name="Chromatica" type="Sprite2D" parent="Art"]
 position = Vector2(1, -5)
 scale = Vector2(0.99999994, 0.99999994)
-texture = SubResource("AtlasTexture_67qxa")
+texture = SubResource("AtlasTexture_str11")
+script = ExtResource("4_dffav")
+_color = 1
+red_statue = SubResource("AtlasTexture_str11")
+blue_statue = SubResource("AtlasTexture_q6pkn")
+green_statue = SubResource("AtlasTexture_pu3xp")
+purple_statue = SubResource("AtlasTexture_xvpi7")
+yellow_statue = SubResource("AtlasTexture_0hjm6")
+cyan_statue = SubResource("AtlasTexture_w7j3f")
 
 [node name="Lantern" parent="Art" instance=ExtResource("4_1wi8g")]
 position = Vector2(1, 0)
 
+[node name="LanternLight" parent="Art/Lantern" index="1"]
+color = Color(1, 0, 0, 1)
+
+[node name="LanterArt" parent="Art/Lantern" index="3"]
+visible = false
+
 [node name="Crystal" parent="Art" instance=ExtResource("7_dffav")]
-position = Vector2(1, -4)
+position = Vector2(1, 1)
+texture = SubResource("AtlasTexture_x5s2m")
+red_gem = SubResource("AtlasTexture_x5s2m")
 cyan_gem = SubResource("AtlasTexture_dffav")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 visible = false
 position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_1wi8g")
+
+[node name="StatuePlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pcj5m")
+}
+
+[node name="StatueSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
+
+[editable path="Art/Lantern"]
+[editable path="Art/Lantern/LanterArt"]

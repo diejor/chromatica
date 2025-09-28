@@ -10,6 +10,8 @@ signal on_lantern_changed(is_active: bool, color: LanternColor.LanternColors)
 @onready var motor: PlayerMotor = $Motor
 @onready var lantern = $LanternComponent
 
+var input_enabled := true
+
 func _ready() -> void:
 	lock_rotation = true
 	contact_monitor = true
@@ -37,3 +39,8 @@ func request_jump() -> void:
 
 func set_power(p: float) -> void:
 	motor.POWER = p
+
+func set_input_enabled(v: bool) -> void:
+	input_enabled = v
+	set_process_input(v)
+	set_process_unhandled_input(v)

@@ -1,3 +1,4 @@
+@tool
 class_name CrystalGem
 extends Sprite2D
 

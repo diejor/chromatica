@@ -78,7 +78,7 @@ func request_jump() -> void:
 	_jump_buffer = JUMP_BUFFER_TIME
 
 func step_process(delta: float) -> void:
-	if Input.is_action_just_pressed("jump"):
+	if $"..".input_enabled and Input.is_action_just_pressed("jump"):
 		_jump_requested = true
 		_jump_buffer = JUMP_BUFFER_TIME
 	_jump_buffer = max(0.0, _jump_buffer - delta)
@@ -102,7 +102,7 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 		_contact_normals.append(local_n)
 		if local_n.x != 0.0:
 			_is_near_wall = true
-			if Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right"):
+			if $"..".input_enabled and (Input.is_action_pressed("move_left") or Input.is_action_pressed("move_right")):
 				_is_grabbing_wall = true
 
 	if _is_grabbing_wall:
@@ -154,6 +154,8 @@ func step_physics(state: PhysicsDirectBodyState2D, body: RigidBody2D) -> void:
 	var factor = clamp(1.0 - (hspeed / eff_max_speed()), 0.0, 1.0)
 
 	var move := Input.get_vector("move_left", "move_right", "move_up", "move_down")
+	if not $"..".input_enabled:
+		move = Vector2()
 	var move_len2 := move.length_squared()
 	var desired := move.normalized()
 

@@ -5,6 +5,7 @@ extends Polygon2D
 
 func _ready() -> void:
 	color = LanternColor.enum_to_color(initial_color)
+	propagate_call("update_color", [color])
 
 func update_color(new_color: Color):
 	color = new_color

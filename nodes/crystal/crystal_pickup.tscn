@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://d3b7ewka3gcnc"]
+[gd_scene load_steps=9 format=3 uid="uid://d3b7ewka3gcnc"]
 
 [ext_resource type="Script" uid="uid://c2byic28wfwk1" path="res://nodes/crystal/crystal_pickup.gd" id="1_i2x2v"]
 [ext_resource type="PackedScene" uid="uid://ios5ai7h3tl0" path="res://nodes/lantern/crystal.tscn" id="2_rpn0c"]
 [ext_resource type="PackedScene" uid="uid://byh64fhcdkctg" path="res://nodes/lantern/point_light.tscn" id="3_rpn0c"]
+[ext_resource type="Script" uid="uid://bsasc8633lu00" path="res://nodes/lantern/point_light.gd" id="4_pxfwg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fmb0c"]
 
@@ -46,6 +47,7 @@ _data = {
 
 [node name="CrystalPickup" type="StaticBody2D"]
 visibility_layer = 3
+use_parent_material = true
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_i2x2v")
@@ -54,12 +56,15 @@ _color = 1
 [node name="Crystal" parent="." instance=ExtResource("2_rpn0c")]
 self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
 visibility_layer = 3
+use_parent_material = true
 scale = Vector2(0.05, 0.05)
 color = Color(1, 0, 0, 1)
 initial_color = 1
 
 [node name="PointLight2D" parent="Crystal" instance=ExtResource("3_rpn0c")]
 scale = Vector2(19.999998, 19.999998)
+energy = 0.5
+script = ExtResource("4_pxfwg")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_fmb0c")

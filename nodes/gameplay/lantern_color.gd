@@ -19,7 +19,7 @@ static func enum_to_color(enm: LanternColor.LanternColors) -> Color:
 		LanternColors.YELLOW: return Color.YELLOW
 		LanternColors.GREEN: return Color.GREEN
 		LanternColors.BLUE: return Color.BLUE
-		LanternColors.PURPLE: return Color.PURPLE
+		LanternColors.PURPLE: return Color.MAGENTA
 		LanternColors.CYAN: return Color.CYAN
 		LanternColors.WHITE: return Color.WHITE
 	return Color.BLACK

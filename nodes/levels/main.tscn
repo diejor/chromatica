@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=4 uid="uid://c3krt76nlapyv"]
+[gd_scene load_steps=19 format=4 uid="uid://c3krt76nlapyv"]
 
 [ext_resource type="PackedScene" uid="uid://bv0wgcrvsab1p" path="res://nodes/saturation_mask/mask_node.tscn" id="2_8juki"]
 [ext_resource type="Shader" uid="uid://d3uebi86wpdfa" path="res://nodes/saturation_mask/saturation_mask.gdshader" id="2_is15t"]
@@ -8,7 +8,9 @@
 [ext_resource type="PackedScene" uid="uid://dfodrofh2ybv1" path="res://nodes/player/player.tscn" id="6_wxtai"]
 [ext_resource type="PackedScene" uid="uid://rxiqf0u87fub" path="res://nodes/statue/statue.tscn" id="7_is15t"]
 [ext_resource type="Script" uid="uid://dipcqr8y4uq8p" path="res://nodes/gameplay/blue_tiles.gd" id="7_wxtai"]
+[ext_resource type="PackedScene" uid="uid://dy51um1k0yulf" path="res://nodes/statue/combined_statues.tscn" id="8_6ua6p"]
 [ext_resource type="Script" uid="uid://skobsgt85phl" path="res://nodes/gameplay/red_tiles.gd" id="8_fmb0c"]
+[ext_resource type="PackedScene" uid="uid://c0kxwgxyb2lg0" path="res://nodes/statue/main_statue.tscn" id="8_p7gfi"]
 [ext_resource type="PackedScene" uid="uid://by4s5s2n0xwqe" path="res://nodes/gameplay/rigid_block.tscn" id="9_p7gfi"]
 [ext_resource type="PackedScene" uid="uid://d3b7ewka3gcnc" path="res://nodes/crystal/crystal_pickup.tscn" id="11_p7gfi"]
 
@@ -113,21 +115,27 @@ tile_map_data = PackedByteArray("AAA4AAsAAAALABMAAAA4AAoAAAAKABIAAAA4AAkAAAALABI
 tile_set = ExtResource("4_h4jyf")
 script = ExtResource("8_fmb0c")
 
+[node name="CombinedStatues" parent="MaskNode" instance=ExtResource("8_6ua6p")]
+position = Vector2(162, 96)
+
+[node name="MainStatue" parent="MaskNode" instance=ExtResource("8_p7gfi")]
+position = Vector2(0, 5)
+
 [node name="RedStatue" parent="MaskNode" instance=ExtResource("7_is15t")]
 use_parent_material = true
-position = Vector2(319, 63)
+position = Vector2(319, 58)
 is_active = false
 
 [node name="BlueStatue" parent="MaskNode" instance=ExtResource("7_is15t")]
-visible = false
 use_parent_material = true
-position = Vector2(-106, 79)
+position = Vector2(-109, 73)
 lantern_color = 4
+is_active = false
 
 [node name="GreenStatue" parent="MaskNode" instance=ExtResource("7_is15t")]
-visible = false
-position = Vector2(-293, 83)
+position = Vector2(-293, 73)
 lantern_color = 3
+is_active = false
 
 [node name="RigidBlock" parent="MaskNode" instance=ExtResource("9_p7gfi")]
 use_parent_material = true
@@ -137,14 +145,22 @@ position = Vector2(-239, 78)
 unique_name_in_owner = true
 position = Vector2(18, 34)
 
+[node name="CrystalPickup5" parent="MaskNode" instance=ExtResource("11_p7gfi")]
+position = Vector2(85, 42)
+_color = 5
+
 [node name="CrystalPickup2" parent="MaskNode" instance=ExtResource("11_p7gfi")]
-position = Vector2(-177, 80)
-_color = 4
+position = Vector2(96, 27)
+_color = 6
 
 [node name="CrystalPickup3" parent="MaskNode" instance=ExtResource("11_p7gfi")]
-position = Vector2(-262, 44)
-_color = 3
+position = Vector2(66, 38)
+_color = 2
+
+[node name="CrystalPickup4" parent="MaskNode" instance=ExtResource("11_p7gfi")]
+position = Vector2(243, 70)
 
 [node name="CrystalPickup" parent="MaskNode" instance=ExtResource("11_p7gfi")]
-visibility_layer = 3
-position = Vector2(137, 70)
+position = Vector2(104, 79)
+
+[node name="Sprite2D" type="Sprite2D" parent="MaskNode"]
