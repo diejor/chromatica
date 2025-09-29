@@ -21,10 +21,10 @@
 friction = 0.15
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_1fmtd"]
-radius = 37.0
+radius = 22.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_2xyxk"]
-radius = 37.01351
+radius = 22.022715
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hs1md"]
 atlas = ExtResource("5_4j62c")
@@ -350,6 +350,8 @@ rotation_smoothing_speed = 16.0
 
 [node name="Motor" type="Node" parent="."]
 script = ExtResource("2_1fmtd")
+WALL_JUMP_VERTICAL_MULTIPLIER = 0.9
+WALL_JUMP_MIN_UP_MULT = 1.0
 
 [node name="CheckpointComponent" type="Node" parent="."]
 script = ExtResource("3_lancr")

@@ -1,33 +1,10 @@
-[gd_scene load_steps=12 format=3 uid="uid://cyn7dschkcvkp"]
+[gd_scene load_steps=13 format=3 uid="uid://cyn7dschkcvkp"]
 
 [ext_resource type="Script" uid="uid://dmdl5gavucs2c" path="res://ui/ui.gd" id="1_xmm75"]
 [ext_resource type="Theme" uid="uid://bi18dx27os66g" path="res://ui/ui_theme.tres" id="2_hxwew"]
 [ext_resource type="AudioStream" uid="uid://c7d0opfq1y0ac" path="res://assets/songs/chromatica.mp3" id="2_qesnl"]
+[ext_resource type="Texture2D" uid="uid://jiyo2lu3qmob" path="res://assets/logo.png" id="3_a6px5"]
 [ext_resource type="AudioStream" uid="uid://pkt55e4ro5re" path="res://assets/sfx/church-bell.mp3" id="4_u132g"]
-
-[sub_resource type="Animation" id="Animation_hxwew"]
-resource_name = "main_theme"
-length = 90.0
-tracks/0/type = "audio"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("SongPlayer")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"clips": [{
-"end_offset": 0.0,
-"start_offset": 0.0,
-"stream": ExtResource("2_qesnl")
-}],
-"times": PackedFloat32Array(0)
-}
-tracks/0/use_blend = true
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_u132g"]
-_data = {
-&"main_theme": SubResource("Animation_hxwew")
-}
 
 [sub_resource type="Animation" id="Animation_a6px5"]
 length = 0.001
@@ -82,6 +59,7 @@ tracks/3/keys = {
 
 [sub_resource type="Animation" id="Animation_wf7rf"]
 resource_name = "main_menu"
+length = 10.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -130,6 +108,35 @@ tracks/3/keys = {
 "values": [{
 "args": [false],
 "method": &"_set_gameplay_input"
+}]
+}
+tracks/4/type = "audio"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("SongPlayer")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"clips": [{
+"end_offset": 80.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_qesnl")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/4/use_blend = true
+tracks/5/type = "method"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SongMixer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [&"main_menu", -1, 1.0, false],
+"method": &"play"
 }]
 }
 
@@ -263,10 +270,35 @@ _data = {
 &"win": SubResource("Animation_s15di")
 }
 
+[sub_resource type="Animation" id="Animation_8wtnh"]
+resource_name = "main_menu"
+length = 80.0
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SongPlayer")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("2_qesnl")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_au5f4"]
+_data = {
+&"main_menu": SubResource("Animation_8wtnh")
+}
+
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource("1_xmm75")
 
 [node name="Panel" type="Panel" parent="."]
+self_modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -276,31 +308,38 @@ theme = ExtResource("2_hxwew")
 
 [node name="Button" type="Button" parent="Panel"]
 layout_mode = 0
-offset_left = 122.0
-offset_top = 98.0
-offset_right = 195.0
-offset_bottom = 152.0
+offset_left = 128.0
+offset_top = 156.0
+offset_right = 201.0
+offset_bottom = 210.0
 text = "Play"
 
+[node name="TextureRect" type="TextureRect" parent="Panel"]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 36.0
+offset_right = 459.0
+offset_bottom = 129.0
+texture = ExtResource("3_a6px5")
+
 [node name="YouWin" type="Panel" parent="."]
+self_modulate = Color(0, 0, 0, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextEdit" type="TextEdit" parent="YouWin"]
+[node name="Label" type="Label" parent="YouWin"]
 layout_mode = 0
-offset_left = 214.0
-offset_top = 113.0
-offset_right = 360.0
-offset_bottom = 175.0
-text = "You Win!"
-
-[node name="SongMixer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_u132g")
-}
+offset_left = 154.0
+offset_top = 129.0
+offset_right = 400.0
+offset_bottom = 192.0
+theme = ExtResource("2_hxwew")
+theme_override_font_sizes/font_size = 21
+text = "The light of the goddess 
+has been restored."
 
 [node name="SongPlayer" type="AudioStreamPlayer" parent="."]
 bus = &"Songs"
@@ -311,6 +350,12 @@ libraries = {
 }
 
 [node name="UISFX" type="AudioStreamPlayer" parent="."]
+max_polyphony = 5
 bus = &"SFX"
+
+[node name="SongMixer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_au5f4")
+}
 
 [connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]

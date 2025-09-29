@@ -58,7 +58,7 @@ libraries = {
 bus = &"SFX"
 
 [node name="First" parent="." instance=ExtResource("6_adq0e")]
-self_modulate = Color(0.735357, 0.735357, 0.735357, 1)
+modulate = Color(0.45748308, 0.45748308, 0.45748308, 1)
 position = Vector2(13, -21)
 lantern_color = 4
 is_active = false
@@ -70,7 +70,7 @@ _color = 4
 
 [node name="LanternLight" parent="First/Art/Lantern" index="1"]
 color = Color(0, 0, 1, 1)
-energy = 0.1
+energy = 0.25
 
 [node name="LanterArt" parent="First/Art/Lantern" index="3"]
 visible = true
@@ -81,22 +81,19 @@ texture = SubResource("AtlasTexture_5oaxd")
 _color = 4
 
 [node name="Second" parent="." instance=ExtResource("6_adq0e")]
-self_modulate = Color(0.735357, 0.735357, 0.735357, 1)
+modulate = Color(0.45748308, 0.45748308, 0.45748308, 1)
 position = Vector2(-17, -19)
 is_active = false
 makes_lantern_change = false
 
 [node name="LanternLight" parent="Second/Art/Lantern" index="1"]
-energy = 0.1
+energy = 0.25
 
 [node name="LanterArt" parent="Second/Art/Lantern" index="3"]
 visible = true
 
 [node name="Crystal" parent="Second/Art" index="2"]
 position = Vector2(-1, -7)
-
-[node name="CollisionShape2D" parent="Second" index="2"]
-visible = true
 
 [node name="Combined" parent="." instance=ExtResource("6_adq0e")]
 position = Vector2(-2, -20)
@@ -109,7 +106,7 @@ _color = 5
 
 [node name="LanternLight" parent="Combined/Art/Lantern" index="1"]
 color = Color(1, 0, 1, 1)
-energy = 0.1
+energy = 0.25
 
 [node name="LanterArt" parent="Combined/Art/Lantern" index="3"]
 visible = true

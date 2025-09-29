@@ -41,8 +41,8 @@ atlas = ExtResource("3_1wi8g")
 region = Rect2(32, 224, 16, 16)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wi8g"]
-radius = 17.0
-height = 50.0
+radius = 20.0
+height = 46.0
 
 [sub_resource type="Animation" id="Animation_67qxa"]
 resource_name = "crystal_received"
@@ -110,8 +110,6 @@ red_gem = SubResource("AtlasTexture_x5s2m")
 cyan_gem = SubResource("AtlasTexture_dffav")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
-position = Vector2(0, -8)
 shape = SubResource("CapsuleShape2D_1wi8g")
 
 [node name="StatuePlayer" type="AnimationPlayer" parent="."]

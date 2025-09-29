@@ -23,7 +23,7 @@ func get_lantern_color() -> Color:
 func off():
 	propagate_call("turn_off")
 	$Art/Lantern.animator.play_backwards("expand_lantern")
-	$Art/Lantern/LanternLight.energy = 0.1
+	$Art/Lantern/LanternLight.energy = 0.25
 	is_active = false
 	
 func on():

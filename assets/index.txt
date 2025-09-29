@@ -1,1 +1,3 @@
-adve-tiles.png - https://egordorichev.itch.io/adve
+tilemap - https://egordorichev.itch.io/adve
+player-character-sprite - https://lucky-loops.itch.io/character-satyr
+various sfx - pixabay

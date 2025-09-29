@@ -3,13 +3,16 @@ extends CanvasLayer
 @onready var ui_animations = $UIAnimations
 
 func _ready() -> void:	
-	$SongMixer.play("main_theme")
-	$UIAnimations.play("main_menu")
+	ui_animations.play("main_menu")
 
 func player_won():
-	$UIAnimations.play("win")
+	ui_animations.play("win")
 
 func _on_button_pressed() -> void:
+	var music_bus := AudioServer.get_bus_index("Songs")
+	AudioServer.set_bus_mute(music_bus, true)
+	
+	ui_animations.play("start_game")
 	ui_animations.play("start_game")
 
 func _set_gameplay_input(on: bool) -> void:

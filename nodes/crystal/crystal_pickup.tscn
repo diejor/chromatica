@@ -63,6 +63,7 @@ initial_color = 1
 
 [node name="PointLight2D" parent="Crystal" instance=ExtResource("3_rpn0c")]
 scale = Vector2(19.999998, 19.999998)
+color = Color(1, 0, 0, 1)
 energy = 0.5
 script = ExtResource("4_pxfwg")
 
