@@ -63,10 +63,14 @@ position = Vector2(13, -21)
 lantern_color = 4
 is_active = false
 makes_lantern_change = false
+is_combined = null
 
 [node name="Chromatica" parent="First/Art" index="0"]
 texture = SubResource("AtlasTexture_q6pkn")
 _color = 4
+
+[node name="Lantern" parent="First/Art" index="1"]
+scale = Vector2(0.1, 0.1)
 
 [node name="LanternLight" parent="First/Art/Lantern" index="1"]
 color = Color(0, 0, 1, 1)
@@ -85,6 +89,10 @@ modulate = Color(0.45748308, 0.45748308, 0.45748308, 1)
 position = Vector2(-17, -19)
 is_active = false
 makes_lantern_change = false
+is_combined = null
+
+[node name="Lantern" parent="Second/Art" index="1"]
+scale = Vector2(0.1, 0.1)
 
 [node name="LanternLight" parent="Second/Art/Lantern" index="1"]
 energy = 0.25
@@ -99,6 +107,7 @@ position = Vector2(-1, -7)
 position = Vector2(-2, -20)
 lantern_color = 5
 is_active = false
+is_combined = true
 
 [node name="Chromatica" parent="Combined/Art" index="0"]
 texture = SubResource("AtlasTexture_xvpi7")

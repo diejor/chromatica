@@ -62,6 +62,22 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 		current_color = current_statue.lantern_color
 		if was_active:
 			expand_lantern()
+			
+	if current_statue and current_statue.is_combined:
+		current_statue.statue_activated.connect(track_combined_statue_changed)
+		
+func track_combined_statue_changed(statue: Statue):
+	assert(statue.is_combined, "Tracking should be done in a combined statue")
+	if statue.is_active and current_color != statue.lantern_color and statue.makes_lantern_change:
+		print("should switch!")
+		var was_active = is_lantern_active
+		if is_lantern_active:
+			await shut_lantern()
+		lantern.update_color(statue.get_lantern_color())
+		sfx_player.play("color_switched")
+		current_color = statue.lantern_color
+		if was_active:
+			expand_lantern()
 
 func _on_interact_area_body_exited(_body: Node2D) -> void:
 	current_statue = null

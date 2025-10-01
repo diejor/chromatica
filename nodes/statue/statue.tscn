@@ -41,7 +41,6 @@ atlas = ExtResource("3_1wi8g")
 region = Rect2(32, 224, 16, 16)
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wi8g"]
-radius = 20.0
 height = 46.0
 
 [sub_resource type="Animation" id="Animation_67qxa"]
@@ -110,6 +109,7 @@ red_gem = SubResource("AtlasTexture_x5s2m")
 cyan_gem = SubResource("AtlasTexture_dffav")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -4)
 shape = SubResource("CapsuleShape2D_1wi8g")
 
 [node name="StatuePlayer" type="AnimationPlayer" parent="."]

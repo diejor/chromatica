@@ -1,4 +1,3 @@
-@tool
 class_name CombinedStatue
 extends Node2D
 
@@ -11,7 +10,7 @@ func _ready() -> void:
 	$First.statue_activated.connect(increment_active_statues)
 	$Second.statue_activated.connect(increment_active_statues)
 
-func increment_active_statues():
+func increment_active_statues(_statue: Statue):
 	active_statues += 1
 	if active_statues == 2:
 		$Combined.switch()

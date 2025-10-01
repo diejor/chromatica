@@ -2,7 +2,7 @@
 class_name Statue
 extends Node2D
 
-signal statue_activated
+signal statue_activated(statue: Statue)
 
 @onready var lantern = $Art/Lantern
 @onready var crystal = $Art/Crystal
@@ -11,6 +11,7 @@ signal statue_activated
 @export var lantern_color: LanternColor.LanternColors
 @export var is_active = true
 @export var makes_lantern_change = true
+@export var is_combined = false
 
 func _ready() -> void:
 	propagate_call("update_color", [get_lantern_color()])
@@ -25,13 +26,14 @@ func off():
 	$Art/Lantern.animator.play_backwards("expand_lantern")
 	$Art/Lantern/LanternLight.energy = 0.25
 	is_active = false
+	statue_activated.emit(self)
 	
 func on():
-	statue_activated.emit()
 	propagate_call("turn_on")
 	$Art/Lantern.animator.play("expand_lantern")
 	$Art/Lantern/LanternLight.energy = 0.5
 	is_active = true
+	statue_activated.emit(self)
 
 func switch():
 	if is_active:

@@ -1,4 +1,3 @@
-@tool
 class_name MainStatue
 extends Node2D
 
