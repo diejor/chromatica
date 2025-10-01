@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	var v := player.linear_velocity
 	var prev := _prev_v
 
-	# debounce grounded (use motor’s raw flag but with enter/exit hysteresis)
+	# debounce grounded
 	var grounded_raw := motor._on_ground
 	if grounded_raw:
 		_ground_enter_accum += delta
@@ -53,12 +53,18 @@ func _physics_process(delta: float) -> void:
 	var grounded := _grounded_smoothed
 	var accel_state := 0
 
-	# movement when grounded (unchanged logic, using smoothed grounded)
-	if grounded:
-		var in_x := Input.get_vector("move_left", "move_right", "move_up", "move_down").x
-		var input_dir := _sgn_eps(in_x, 0.2)
-		var vel_dir := _sgn_eps(v.x, speed_eps)
+	# common inputs / dirs
+	var in_x := Input.get_vector("move_left", "move_right", "move_up", "move_down").x
+	var input_dir := _sgn_eps(in_x, 0.2)
+	var vel_dir := _sgn_eps(v.x, speed_eps)
+	var has_input := input_dir != 0
+	var input_matches_velocity := (has_input and vel_dir != 0 and input_dir == vel_dir)
+	var at_speed_cap := false
+	if motor and "eff_max_speed" in motor:
+		at_speed_cap = absf(v.x) >= motor.eff_max_speed() - 1.0
 
+	# movement when grounded
+	if grounded:
 		var d_abs_vx_dt := (absf(v.x) - absf(prev.x)) / delta
 		if absf(v.x) < speed_eps:
 			d_abs_vx_dt = 0.0
@@ -66,15 +72,19 @@ func _physics_process(delta: float) -> void:
 		if d_abs_vx_dt > accel_eps:
 			accel_state = 1
 		elif d_abs_vx_dt < -accel_eps:
-			var input_opposes := (input_dir != 0 and vel_dir != 0 and input_dir != vel_dir)
-			if (input_dir == 0 or input_opposes) and (absf(v.x) > stop_threshold or _is_stopping):
+			var input_opposes := (has_input and vel_dir != 0 and input_dir != vel_dir)
+			if (not has_input or input_opposes) and (absf(v.x) > stop_threshold or _is_stopping):
 				accel_state = -1
 				_is_stopping = true
 			else:
 				accel_state = 1
 		else:
-			if input_dir == 0:
+			if input_matches_velocity and (at_speed_cap or absf(v.x) > speed_eps):
+				accel_state = 1
+			elif not has_input:
 				accel_state = 0
+			else:
+				accel_state = 1
 
 		if absf(v.x) < 25.0 and _is_stopping:
 			_is_stopping = false
@@ -84,7 +94,7 @@ func _physics_process(delta: float) -> void:
 		_fall_accum = 0.0
 
 	else:
-		# falling debounce: only set falling after sustained downward motion while not grounded
+		# falling debounce
 		if v.y > vy_eps:
 			_fall_accum += delta
 			if _fall_accum >= FALL_ENTER_DELAY:
@@ -116,7 +126,6 @@ func _physics_process(delta: float) -> void:
 		accel_state = -1
 	
 	var blend_state := Vector2(accel_state, 0.0 if grounded else 1.0)
-			
 	animation_tree.set("parameters/AnimationNodeStateMachine/Movement/blend_position", blend_state)
 
 	_prev_v = v

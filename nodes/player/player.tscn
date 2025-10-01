@@ -358,7 +358,6 @@ script = ExtResource("3_lancr")
 
 [node name="AnimationComponent" type="Node" parent="."]
 script = ExtResource("3_qwfek")
-accel_eps = 0.01
 
 [node name="LanternComponent" type="Node2D" parent="."]
 script = ExtResource("3_fn53c")
