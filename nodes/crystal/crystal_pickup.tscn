@@ -1,0 +1,83 @@
+[gd_scene load_steps=9 format=3 uid="uid://d3b7ewka3gcnc"]
+
+[ext_resource type="Script" uid="uid://c2byic28wfwk1" path="res://nodes/crystal/crystal_pickup.gd" id="1_i2x2v"]
+[ext_resource type="PackedScene" uid="uid://ios5ai7h3tl0" path="res://nodes/lantern/crystal.tscn" id="2_rpn0c"]
+[ext_resource type="PackedScene" uid="uid://byh64fhcdkctg" path="res://nodes/lantern/point_light.tscn" id="3_rpn0c"]
+[ext_resource type="Script" uid="uid://bsasc8633lu00" path="res://nodes/lantern/point_light.gd" id="4_pxfwg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fmb0c"]
+
+[sub_resource type="Animation" id="Animation_rpn0c"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crystal:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.033333335),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_i2x2v"]
+resource_name = "hover"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Crystal:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1, 2, 3.0333333, 3.9666667),
+"transitions": PackedFloat32Array(0.75, 0.75, 0.75, 0.75, 0.75),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(4.87, -1.895), Vector2(-4.715, -0.385), Vector2(2.995, 5), Vector2(-3.68, 2.79)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pxfwg"]
+_data = {
+&"RESET": SubResource("Animation_rpn0c"),
+&"hover": SubResource("Animation_i2x2v")
+}
+
+[node name="CrystalPickup" type="StaticBody2D"]
+visibility_layer = 3
+use_parent_material = true
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_i2x2v")
+_color = 1
+
+[node name="Crystal" parent="." instance=ExtResource("2_rpn0c")]
+self_modulate = Color(1.353256, 1.353256, 1.353256, 1)
+visibility_layer = 3
+use_parent_material = true
+scale = Vector2(0.05, 0.05)
+color = Color(1, 0, 0, 1)
+initial_color = 1
+
+[node name="PointLight2D" parent="Crystal" instance=ExtResource("3_rpn0c")]
+scale = Vector2(19.999998, 19.999998)
+color = Color(1, 0, 0, 1)
+energy = 0.5
+texture_scale = 0.5
+script = ExtResource("4_pxfwg")
+
+[node name="SaturatedMask" parent="Crystal/PointLight2D" index="0"]
+scale = Vector2(0.5, 0.5)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource("CircleShape2D_fmb0c")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pxfwg")
+}
+
+[editable path="Crystal/PointLight2D"]

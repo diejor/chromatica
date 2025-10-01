@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://di36rvitgp4wh"]
+
+[ext_resource type="Script" uid="uid://cnqer40htfnm1" path="res://nodes/utils/interpolate.gd" id="1_gvwho"]
+[ext_resource type="Script" uid="uid://dd6fviyrfpl35" path="res://nodes/crystal/crystal_pouch.gd" id="1_hl1kw"]
+
+[node name="CrystalPouch" type="Node2D"]
+visibility_layer = 3
+script = ExtResource("1_hl1kw")
+spawn_radius = 1.0
+
+[node name="InterpolatePouch" type="Node2D" parent="."]
+top_level = true
+visibility_layer = 3
+script = ExtResource("1_gvwho")

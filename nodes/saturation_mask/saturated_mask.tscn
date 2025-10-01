@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://d3nwc37sijhkr"]
+
+[ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="1_fe3l7"]
+
+[node name="SaturatedMask" type="Sprite2D"]
+show_behind_parent = true
+visibility_layer = 259
+z_index = -100
+texture = ExtResource("1_fe3l7")

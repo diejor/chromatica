@@ -1,0 +1,41 @@
+[gd_scene load_steps=5 format=3 uid="uid://by4s5s2n0xwqe"]
+
+[ext_resource type="Texture2D" uid="uid://dbgfykv5rwf3p" path="res://assets/green_block.png" id="1_kj8c6"]
+[ext_resource type="Script" uid="uid://bc17mdpt1o5ae" path="res://nodes/gameplay/rigid_block.gd" id="1_toqph"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fmb0c"]
+friction = 0.05
+rough = true
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fmb0c"]
+size = Vector2(32, 32)
+
+[node name="RigidBlock" type="RigidBody2D"]
+physics_material_override = SubResource("PhysicsMaterial_fmb0c")
+script = ExtResource("1_toqph")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_fmb0c")
+
+[node name="GreenBlock4" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(-8, 8)
+rotation = -1.5707964
+texture = ExtResource("1_kj8c6")
+
+[node name="GreenBlock" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(8, 8)
+rotation = 3.1415927
+texture = ExtResource("1_kj8c6")
+
+[node name="GreenBlock2" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(-8, -8)
+texture = ExtResource("1_kj8c6")
+
+[node name="GreenBlock3" type="Sprite2D" parent="."]
+use_parent_material = true
+position = Vector2(8, -8)
+rotation = 1.5707964
+texture = ExtResource("1_kj8c6")

@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://ios5ai7h3tl0"]
+
+[ext_resource type="Script" uid="uid://e7byyb2tq44k" path="res://nodes/statue/crystal.gd" id="1_j5eno"]
+
+[node name="Crystal" type="Polygon2D"]
+z_index = -1
+scale = Vector2(0.99999994, 0.99999994)
+color = Color(0, 0, 0, 1)
+polygon = PackedVector2Array(0, -40, -40, 0, 0, 40, 40, 0)
+script = ExtResource("1_j5eno")

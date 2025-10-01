@@ -1,0 +1,95 @@
+[gd_scene load_steps=11 format=3 uid="uid://cloul4xof5on"]
+
+[ext_resource type="Script" uid="uid://bwdvpnnua7vmq" path="res://nodes/environment/butterfly.gd" id="1_hn13o"]
+[ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="1_x0cun"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bkw1f"]
+atlas = ExtResource("1_x0cun")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3a6v6"]
+atlas = ExtResource("1_x0cun")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ph3q8"]
+atlas = ExtResource("1_x0cun")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dnhw6"]
+atlas = ExtResource("1_x0cun")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6ua6p"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bkw1f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3a6v6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ph3q8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dnhw6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_x0cun"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(57, 29)]
+}
+
+[sub_resource type="Animation" id="Animation_6ua6p"]
+resource_name = "move"
+length = 5.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.03333333, 1, 2, 3.0333333, 4.0333333),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(57, 29), Vector2(34, -13), Vector2(-13, -17.253), Vector2(-5, -13.561)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_xoffe"]
+_data = {
+&"RESET": SubResource("Animation_x0cun"),
+&"move": SubResource("Animation_6ua6p")
+}
+
+[node name="Butterfly" type="Node2D"]
+use_parent_material = true
+script = ExtResource("1_hn13o")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
+position = Vector2(57, 29)
+sprite_frames = SubResource("SpriteFrames_6ua6p")
+autoplay = "default"
+frame_progress = 0.40363944
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_xoffe")
+}
+speed_scale = 0.1

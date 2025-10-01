@@ -1,4 +1,3 @@
-@tool
 class_name MaskNode
 extends Node
 
@@ -52,3 +51,6 @@ func _sync_to_visible() -> void:
 	_vp.size = vis.size
 	_vp.canvas_transform = root.canvas_transform
 	_vp.global_canvas_transform = root.global_canvas_transform
+	
+	var tex = get_mask_texture()
+	RenderingServer.global_shader_parameter_set("MASK_TEXTURE", tex)

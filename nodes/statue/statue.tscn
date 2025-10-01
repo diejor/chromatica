@@ -1,60 +1,121 @@
-[gd_scene load_steps=2 format=3 uid="uid://rxiqf0u87fub"]
+[gd_scene load_steps=18 format=3 uid="uid://rxiqf0u87fub"]
 
-[ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="1_yhkda"]
+[ext_resource type="Script" uid="uid://cks2t5wvmcme8" path="res://nodes/statue/statue.gd" id="1_1wi8g"]
+[ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="3_1wi8g"]
+[ext_resource type="PackedScene" uid="uid://bemfqhc7qs4qv" path="res://nodes/lantern/lantern.tscn" id="4_1wi8g"]
+[ext_resource type="Script" uid="uid://eoc4ej42acna" path="res://nodes/statue/chromatica.gd" id="4_dffav"]
+[ext_resource type="AudioStream" uid="uid://b5ctss2ngnpqg" path="res://assets/sfx/crystal-found.mp3" id="6_pcj5m"]
+[ext_resource type="PackedScene" uid="uid://d2cnnmwe253vu" path="res://nodes/crystal/crystal_gem.tscn" id="7_dffav"]
 
-[node name="Statue" type="Node2D"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_str11"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(150, 210, 38, 52)
 
-[node name="Knight" type="Node2D" parent="."]
-use_parent_material = true
-position = Vector2(-23, -24)
-scale = Vector2(0.05, 0.05)
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6pkn"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(188, 264, 38, 56)
 
-[node name="Face" type="Polygon2D" parent="Knight"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pu3xp"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(147, 264, 38, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xvpi7"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(230, 264, 38, 56)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0hjm6"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(230, 210, 38, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w7j3f"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(188, 210, 38, 52)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x5s2m"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(32, 208, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dffav"]
+atlas = ExtResource("3_1wi8g")
+region = Rect2(32, 224, 16, 16)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1wi8g"]
+height = 46.0
+
+[sub_resource type="Animation" id="Animation_67qxa"]
+resource_name = "crystal_received"
+length = 3.2
+tracks/0/type = "audio"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("StatueSFX")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("6_pcj5m")
+}],
+"times": PackedFloat32Array(0)
+}
+tracks/0/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pcj5m"]
+_data = {
+&"crystal_received": SubResource("Animation_67qxa")
+}
+
+[node name="Statue" type="StaticBody2D"]
+visibility_layer = 3
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("1_1wi8g")
+lantern_color = 1
+
+[node name="Art" type="Node2D" parent="."]
+visibility_layer = 3
+
+[node name="Chromatica" type="Sprite2D" parent="Art"]
+position = Vector2(1, -5)
 scale = Vector2(0.99999994, 0.99999994)
-color = Color(0.15558979, 0.13973871, 0.14880553, 1)
-polygon = PackedVector2Array(429.99973, 129.9997, 429.99973, 219.99971, 469.99973, 239.99971, 519.99976, 219.99971, 529.99976, 129.9997)
+texture = SubResource("AtlasTexture_str11")
+script = ExtResource("4_dffav")
+_color = 1
+red_statue = SubResource("AtlasTexture_str11")
+blue_statue = SubResource("AtlasTexture_q6pkn")
+green_statue = SubResource("AtlasTexture_pu3xp")
+purple_statue = SubResource("AtlasTexture_xvpi7")
+yellow_statue = SubResource("AtlasTexture_0hjm6")
+cyan_statue = SubResource("AtlasTexture_w7j3f")
 
-[node name="Body" type="Polygon2D" parent="Knight"]
-scale = Vector2(0.99999994, 0.99999994)
-color = Color(0.4677382, 0.46773827, 0.4677382, 1)
-polygon = PackedVector2Array(419.99966, 229.99968, 369.99966, 269.9997, 369.99966, 729.99963, 579.99963, 729.99963, 579.99963, 259.9997, 539.99963, 219.99968)
+[node name="Lantern" parent="Art" instance=ExtResource("4_1wi8g")]
+position = Vector2(1, 0)
 
-[node name="Helmet" type="Polygon2D" parent="Knight"]
-position = Vector2(18, 2)
-color = Color(0.6632747, 0.66327536, 0.66327494, 1)
-polygon = PackedVector2Array(447, 226, 422, 251, 391, 230, 383, 146, 419, 109, 460, 93, 494, 105, 532, 148, 529, 226, 502, 245, 471, 226, 478, 182, 507, 160, 508, 135, 458, 160, 414, 135, 414, 161, 442, 179)
+[node name="LanternLight" parent="Art/Lantern" index="1"]
+color = Color(1, 0, 0, 1)
 
-[node name="RightShoulder" type="Polygon2D" parent="Knight"]
-position = Vector2(958, 0)
-rotation = -3.1415925
-scale = Vector2(1, -1)
-color = Color(0.7699953, 0.7699953, 0.76999515, 1)
-polygon = PackedVector2Array(559, 242, 559, 358, 669, 367, 662, 300, 624, 249)
+[node name="LanterArt" parent="Art/Lantern" index="3"]
+visible = false
 
-[node name="LeftShoulder" type="Polygon2D" parent="Knight"]
-position = Vector2(-14, -3)
-color = Color(0.76862746, 0.76862746, 0.76862746, 1)
-polygon = PackedVector2Array(559, 242, 559, 358, 669, 367, 662, 300, 624, 249)
+[node name="Crystal" parent="Art" instance=ExtResource("7_dffav")]
+position = Vector2(1, 1)
+texture = SubResource("AtlasTexture_x5s2m")
+red_gem = SubResource("AtlasTexture_x5s2m")
+cyan_gem = SubResource("AtlasTexture_dffav")
 
-[node name="Star" type="Polygon2D" parent="Knight"]
-position = Vector2(10, -55)
-polygon = PackedVector2Array(469, 325, 430, 365, 469, 406, 510, 363)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2(0, -4)
+shape = SubResource("CapsuleShape2D_1wi8g")
 
-[node name="LeftArm" type="Polygon2D" parent="Knight"]
-position = Vector2(950, -8)
-rotation = 3.1415927
-scale = Vector2(1, -1)
-polygon = PackedVector2Array(308, 361, 312, 434, 321, 476, 440, 510, 476, 465, 383, 435, 392, 358)
+[node name="StatuePlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pcj5m")
+}
 
-[node name="RightArm" type="Polygon2D" parent="Knight"]
-position = Vector2(-3, -9)
-polygon = PackedVector2Array(308, 361, 312, 434, 321, 476, 440, 510, 476, 465, 383, 435, 392, 358)
+[node name="StatueSFX" type="AudioStreamPlayer2D" parent="."]
+bus = &"SFX"
 
-[node name="Polygon2D" type="Polygon2D" parent="Knight"]
-position = Vector2(19.999693, -0.00030517575)
-color = Color(0.31764707, 0.3764706, 0.28627452, 1)
-polygon = PackedVector2Array(319.9997, 679.99963, 429.99966, 619.99963, 569.99963, 699.99963, 649.99963, 619.99963, 719.99963, 749.99963, 649.99963, 819.99963, 269.9997, 819.99963, 229.99968, 679.99963, 259.9997, 599.99963)
-
-[node name="LanternArt" parent="." instance=ExtResource("1_yhkda")]
-use_parent_material = true
-position = Vector2(1, -2)
+[editable path="Art/Lantern"]
+[editable path="Art/Lantern/LanterArt"]
