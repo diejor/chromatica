@@ -11,7 +11,7 @@ func _ready() -> void:
 	$CyanCrystal.statue_activated.connect(increment_active_statues)
 	$PurpleCrystal.statue_activated.connect(increment_active_statues)
 
-func increment_active_statues():
+func increment_active_statues(_statue: Statue):
 	active_statues += 1
 	if active_statues == 3:
 		player_won.emit()

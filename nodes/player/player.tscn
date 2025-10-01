@@ -389,6 +389,9 @@ lerp_speed = 10.0
 
 [node name="Lantern" parent="PlayerVisuals/InterpolateLantern" instance=ExtResource("5_j4qgx")]
 
+[node name="LanternLight" parent="PlayerVisuals/InterpolateLantern/Lantern" index="1"]
+scale = Vector2(2, 2)
+
 [node name="PlayerArt" type="Node2D" parent="PlayerVisuals"]
 
 [node name="SpriteSheet" type="Sprite2D" parent="PlayerVisuals/PlayerArt"]
@@ -446,3 +449,6 @@ libraries = {
 [connection signal="body_entered" from="LanternComponent/StatueArea" to="LanternComponent" method="_on_interact_area_body_entered"]
 [connection signal="body_exited" from="LanternComponent/StatueArea" to="LanternComponent" method="_on_interact_area_body_exited"]
 [connection signal="body_entered" from="LanternComponent/PickupArea" to="LanternComponent" method="_on_pickup_area_body_entered"]
+
+[editable path="PlayerVisuals/InterpolateLantern/Lantern"]
+[editable path="PlayerVisuals/InterpolateLantern/Lantern/LanterArt"]

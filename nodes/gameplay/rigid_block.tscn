@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://bc17mdpt1o5ae" path="res://nodes/gameplay/rigid_block.gd" id="1_toqph"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_fmb0c"]
-friction = 0.1
+friction = 0.05
 rough = true
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_fmb0c"]

@@ -63,7 +63,7 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 		if was_active:
 			expand_lantern()
 			
-	if current_statue and current_statue.is_combined:
+	if current_statue and current_statue.is_combined and not current_statue.statue_activated.is_connected(track_combined_statue_changed):
 		current_statue.statue_activated.connect(track_combined_statue_changed)
 		
 func track_combined_statue_changed(statue: Statue):

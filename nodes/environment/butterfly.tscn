@@ -78,9 +78,11 @@ _data = {
 }
 
 [node name="Butterfly" type="Node2D"]
+use_parent_material = true
 script = ExtResource("1_hn13o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+use_parent_material = true
 position = Vector2(57, 29)
 sprite_frames = SubResource("SpriteFrames_6ua6p")
 autoplay = "default"
