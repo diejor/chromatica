@@ -1,10 +1,10 @@
 [gd_scene load_steps=41 format=3 uid="uid://dfodrofh2ybv1"]
 
 [ext_resource type="Script" uid="uid://bd8hga0om7g0k" path="res://nodes/player/player.gd" id="1_4raw8"]
-[ext_resource type="Script" uid="uid://gdjdo3vyarp4" path="res://nodes/player/motor.gd" id="2_1fmtd"]
+[ext_resource type="Script" path="res://nodes/player/motor.gd" id="2_1fmtd"]
 [ext_resource type="Script" uid="uid://dix4u8qoxjk3j" path="res://nodes/lantern/lantern_component.gd" id="3_fn53c"]
-[ext_resource type="Script" uid="uid://co45pk4bm8pni" path="res://nodes/player/checkpoint_component.gd" id="3_lancr"]
-[ext_resource type="Script" uid="uid://mujtdgtrxl58" path="res://nodes/player/animation_component.gd" id="3_qwfek"]
+[ext_resource type="Script" path="res://nodes/player/checkpoint_component.gd" id="3_lancr"]
+[ext_resource type="Script" path="res://nodes/player/animation_component.gd" id="3_qwfek"]
 [ext_resource type="Texture2D" uid="uid://5wocha4bhow3" path="res://assets/satiro-Sheet v1.1.png" id="5_4j62c"]
 [ext_resource type="PackedScene" uid="uid://bemfqhc7qs4qv" path="res://nodes/lantern/lantern.tscn" id="5_j4qgx"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cg2kvs3kg34sj" path="res://nodes/player/player_anim_tree.tres" id="6_5h4ma"]

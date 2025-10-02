@@ -25,10 +25,10 @@ func shut_lantern():
 	await lantern.animator.animation_finished
 	is_lantern_active = false
 
-func _process(_delta: float) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not $"..".input_enabled:
 		return
-	if Input.is_action_just_pressed("lantern"):
+	if event.is_action_pressed("lantern"):
 		if not is_lantern_active:
 			expand_lantern()
 		else:
@@ -69,7 +69,6 @@ func _on_interact_area_body_entered(body: Node2D) -> void:
 func track_combined_statue_changed(statue: Statue):
 	assert(statue.is_combined, "Tracking should be done in a combined statue")
 	if statue.is_active and current_color != statue.lantern_color and statue.makes_lantern_change:
-		print("should switch!")
 		var was_active = is_lantern_active
 		if is_lantern_active:
 			await shut_lantern()

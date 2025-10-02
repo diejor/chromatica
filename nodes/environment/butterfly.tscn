@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://cloul4xof5on"]
+[gd_scene load_steps=12 format=3 uid="uid://cloul4xof5on"]
 
 [ext_resource type="Script" uid="uid://bwdvpnnua7vmq" path="res://nodes/environment/butterfly.gd" id="1_hn13o"]
 [ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="1_x0cun"]
+[ext_resource type="PackedScene" uid="uid://byh64fhcdkctg" path="res://nodes/lantern/point_light.tscn" id="3_utbm2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bkw1f"]
 atlas = ExtResource("1_x0cun")
@@ -78,15 +79,19 @@ _data = {
 }
 
 [node name="Butterfly" type="Node2D"]
+visibility_layer = 3
 use_parent_material = true
 script = ExtResource("1_hn13o")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visibility_layer = 3
 use_parent_material = true
 position = Vector2(57, 29)
 sprite_frames = SubResource("SpriteFrames_6ua6p")
 autoplay = "default"
 frame_progress = 0.40363944
+
+[node name="Light" parent="AnimatedSprite2D" instance=ExtResource("3_utbm2")]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

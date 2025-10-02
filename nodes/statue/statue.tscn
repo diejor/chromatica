@@ -1,9 +1,9 @@
 [gd_scene load_steps=18 format=3 uid="uid://rxiqf0u87fub"]
 
-[ext_resource type="Script" uid="uid://cks2t5wvmcme8" path="res://nodes/statue/statue.gd" id="1_1wi8g"]
+[ext_resource type="Script" path="res://nodes/statue/statue.gd" id="1_1wi8g"]
 [ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="3_1wi8g"]
 [ext_resource type="PackedScene" uid="uid://bemfqhc7qs4qv" path="res://nodes/lantern/lantern.tscn" id="4_1wi8g"]
-[ext_resource type="Script" uid="uid://eoc4ej42acna" path="res://nodes/statue/chromatica.gd" id="4_dffav"]
+[ext_resource type="Script" path="res://nodes/statue/chromatica.gd" id="4_dffav"]
 [ext_resource type="AudioStream" uid="uid://b5ctss2ngnpqg" path="res://assets/sfx/crystal-found.mp3" id="6_pcj5m"]
 [ext_resource type="PackedScene" uid="uid://d2cnnmwe253vu" path="res://nodes/crystal/crystal_gem.tscn" id="7_dffav"]
 
@@ -118,4 +118,3 @@ libraries = {
 bus = &"SFX"
 
 [editable path="Art/Lantern"]
-[editable path="Art/Lantern/LanterArt"]

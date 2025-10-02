@@ -1,6 +1,6 @@
-[gd_scene load_steps=19 format=3 uid="uid://c0kxwgxyb2lg0"]
+[gd_scene load_steps=16 format=3 uid="uid://c0kxwgxyb2lg0"]
 
-[ext_resource type="Script" uid="uid://d1huum0rbxnuy" path="res://nodes/statue/main_statue.gd" id="1_4ip66"]
+[ext_resource type="Script" path="res://nodes/statue/main_statue.gd" id="1_4ip66"]
 [ext_resource type="PackedScene" uid="uid://d3nwc37sijhkr" path="res://nodes/saturation_mask/saturated_mask.tscn" id="2_sxds1"]
 [ext_resource type="Texture2D" uid="uid://dvr68c3okwgse" path="res://assets/chromatica.png" id="3_aej3w"]
 [ext_resource type="PackedScene" uid="uid://bemfqhc7qs4qv" path="res://nodes/lantern/lantern.tscn" id="4_xgmbo"]
@@ -43,10 +43,6 @@ region = Rect2(230, 210, 38, 52)
 atlas = ExtResource("3_aej3w")
 region = Rect2(32, 240, 16, 16)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ip66"]
-radius = 77.0
-height = 154.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_w7j3f"]
 atlas = ExtResource("3_aej3w")
 region = Rect2(188, 210, 38, 52)
@@ -55,10 +51,6 @@ region = Rect2(188, 210, 38, 52)
 atlas = ExtResource("3_aej3w")
 region = Rect2(32, 224, 16, 16)
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xgmbo"]
-radius = 72.0
-height = 146.0
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_xvpi7"]
 atlas = ExtResource("3_aej3w")
 region = Rect2(230, 264, 38, 56)
@@ -66,10 +58,6 @@ region = Rect2(230, 264, 38, 56)
 [sub_resource type="AtlasTexture" id="AtlasTexture_4cady"]
 atlas = ExtResource("3_aej3w")
 region = Rect2(80, 208, 16, 16)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sxds1"]
-radius = 61.0
-height = 122.0
 
 [node name="Statue" type="Node2D"]
 visibility_layer = 3
@@ -99,13 +87,10 @@ libraries = {
 bus = &"SFX"
 
 [node name="YellowCrystal" parent="." instance=ExtResource("7_sxds1")]
-position = Vector2(-13, -33)
+position = Vector2(-15, -41)
 lantern_color = 2
 is_active = false
 makes_lantern_change = false
-
-[node name="SaturatedMask" parent="YellowCrystal" index="0"]
-visible = false
 
 [node name="Chromatica" parent="YellowCrystal/Art" index="0"]
 visible = false
@@ -117,21 +102,14 @@ color = Color(1, 1, 0, 1)
 energy = 0.25
 
 [node name="Crystal" parent="YellowCrystal/Art" index="2"]
-position = Vector2(-1, -7)
 texture = SubResource("AtlasTexture_1xb35")
 _color = 2
 
-[node name="CollisionShape2D" parent="YellowCrystal" index="2"]
-shape = SubResource("CapsuleShape2D_4ip66")
-
 [node name="CyanCrystal" parent="." instance=ExtResource("7_sxds1")]
-position = Vector2(19, -23)
+position = Vector2(17, -29)
 lantern_color = 6
 is_active = false
 makes_lantern_change = false
-
-[node name="SaturatedMask" parent="CyanCrystal" index="0"]
-visible = false
 
 [node name="Chromatica" parent="CyanCrystal/Art" index="0"]
 visible = false
@@ -143,21 +121,14 @@ color = Color(0, 1, 1, 1)
 energy = 0.25
 
 [node name="Crystal" parent="CyanCrystal/Art" index="2"]
-position = Vector2(-1, -7)
 texture = SubResource("AtlasTexture_dffav")
 _color = 6
 
-[node name="CollisionShape2D" parent="CyanCrystal" index="2"]
-shape = SubResource("CapsuleShape2D_xgmbo")
-
 [node name="PurpleCrystal" parent="." instance=ExtResource("7_sxds1")]
-position = Vector2(-17, 7)
+position = Vector2(-18, -1)
 lantern_color = 5
 is_active = false
 makes_lantern_change = false
-
-[node name="SaturatedMask" parent="PurpleCrystal" index="0"]
-visible = false
 
 [node name="Chromatica" parent="PurpleCrystal/Art" index="0"]
 visible = false
@@ -169,12 +140,8 @@ color = Color(1, 0, 1, 1)
 energy = 0.25
 
 [node name="Crystal" parent="PurpleCrystal/Art" index="2"]
-position = Vector2(-1, -7)
 texture = SubResource("AtlasTexture_4cady")
 _color = 5
-
-[node name="CollisionShape2D" parent="PurpleCrystal" index="2"]
-shape = SubResource("CapsuleShape2D_sxds1")
 
 [editable path="YellowCrystal"]
 [editable path="YellowCrystal/Art/Lantern"]
