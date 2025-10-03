@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://bemfqhc7qs4qv"]
 
-[ext_resource type="Script" uid="uid://kc52v0lgqyqk" path="res://nodes/lantern/lantern.gd" id="1_01s3m"]
+[ext_resource type="Script" path="res://nodes/lantern/lantern.gd" id="1_01s3m"]
 [ext_resource type="Texture2D" uid="uid://b8xgqr3priw45" path="res://assets/light_source.tres" id="2_ikmjt"]
-[ext_resource type="Script" uid="uid://b3mrsrn6nh3fr" path="res://nodes/lantern/lantern_light.gd" id="3_ikmjt"]
+[ext_resource type="Script" path="res://nodes/lantern/lantern_light.gd" id="3_ikmjt"]
 [ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="4_ikmjt"]
 
 [sub_resource type="Animation" id="Animation_ikmjt"]
@@ -146,7 +146,6 @@ texture = ExtResource("2_ikmjt")
 [node name="LanternLight" type="PointLight2D" parent="."]
 visibility_layer = 3
 color = Color(0, 0, 1, 1)
-energy = 0.5
 range_item_cull_mask = 3
 texture = ExtResource("2_ikmjt")
 texture_scale = 1.5
