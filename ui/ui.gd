@@ -2,7 +2,8 @@ extends CanvasLayer
 
 @onready var ui_animations = $UIAnimations
 @onready var joystick: TouchScreenJoystick = $Joystick
-@onready var lantern_button: TouchScreenButton = $LanternButton/TouchScreenButton
+@onready var lantern_button: TouchScreenButton = $LanternButton
+@onready var jump_button: TouchScreenButton = $JumpButton
 
 
 func _ready() -> void:	
@@ -27,4 +28,5 @@ func _set_gameplay_input(on: bool) -> void:
 
 	if joystick.only_mobile and _is_mobile():
 		joystick.visible = on
-		lantern_button.get_parent().visible = on
+		lantern_button.visible = on
+		jump_button.visible = on

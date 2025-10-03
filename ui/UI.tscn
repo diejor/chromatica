@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cyn7dschkcvkp"]
+[gd_scene load_steps=21 format=3 uid="uid://cyn7dschkcvkp"]
 
 [ext_resource type="Script" uid="uid://dmdl5gavucs2c" path="res://ui/ui.gd" id="1_xmm75"]
 [ext_resource type="Theme" uid="uid://bi18dx27os66g" path="res://ui/ui_theme.tres" id="2_hxwew"]
@@ -6,6 +6,8 @@
 [ext_resource type="Texture2D" uid="uid://jiyo2lu3qmob" path="res://assets/logo.png" id="3_a6px5"]
 [ext_resource type="AudioStream" uid="uid://pkt55e4ro5re" path="res://assets/sfx/church-bell.mp3" id="4_u132g"]
 [ext_resource type="Script" uid="uid://ck70hxc2wswul" path="res://addons/touch_screen_joystick/touch_screen_joystick.gd" id="6_s15di"]
+[ext_resource type="Script" uid="uid://de8f4sv2ybf8p" path="res://ui/jump_button.gd" id="7_wf7rf"]
+[ext_resource type="PackedScene" uid="uid://c1mj4c47m7gus" path="res://nodes/lantern/lantern_art.tscn" id="8_8wtnh"]
 
 [sub_resource type="Animation" id="Animation_a6px5"]
 length = 0.001
@@ -295,6 +297,9 @@ _data = {
 &"main_menu": SubResource("Animation_8wtnh")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_wf7rf"]
+radius = 50.0
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s15di"]
 content_margin_left = 4.0
 content_margin_top = 4.0
@@ -351,9 +356,6 @@ expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_wf7rf"]
-radius = 50.0
 
 [node name="Ui" type="CanvasLayer"]
 script = ExtResource("1_xmm75")
@@ -420,6 +422,8 @@ libraries = {
 }
 
 [node name="Joystick" type="Control" parent="."]
+visible = false
+modulate = Color(0.4030275, 0.4030275, 0.4030275, 0.592)
 layout_mode = 3
 anchors_preset = 0
 offset_left = 66.0
@@ -427,27 +431,52 @@ offset_top = 261.0
 offset_right = 106.0
 offset_bottom = 301.0
 script = ExtResource("6_s15di")
-deadzone = 10.0
+deadzone = 20.0
 base_radius = 60.0
 knob_radius = 40.0
-show_debug = true
 
-[node name="LanternButton" type="Button" parent="."]
-offset_left = 520.0
-offset_top = 251.0
-offset_right = 597.0
-offset_bottom = 328.0
+[node name="JumpButton" type="TouchScreenButton" parent="."]
+visible = false
+position = Vector2(562, 225)
+shape = SubResource("CircleShape2D_wf7rf")
+action = "lantern"
+visibility_mode = 1
+script = ExtResource("7_wf7rf")
+
+[node name="JumpButtonArt" type="Button" parent="JumpButton"]
+modulate = Color(0.40392157, 0.40392157, 0.40392157, 1)
+offset_left = -39.0
+offset_top = -37.0
+offset_right = 38.0
+offset_bottom = 40.0
 theme_override_styles/normal = SubResource("StyleBoxFlat_s15di")
 theme_override_styles/pressed = SubResource("StyleBoxFlat_wf7rf")
 theme_override_styles/hover = SubResource("StyleBoxFlat_8wtnh")
 theme_override_styles/focus = SubResource("StyleBoxFlat_au5f4")
 button_mask = 0
 
-[node name="TouchScreenButton" type="TouchScreenButton" parent="LanternButton"]
-position = Vector2(39, 37)
+[node name="LanternButton" type="TouchScreenButton" parent="."]
+visible = false
+position = Vector2(479, 300)
 shape = SubResource("CircleShape2D_wf7rf")
 action = "lantern"
 visibility_mode = 1
+
+[node name="LanternButtonArt" type="Button" parent="LanternButton"]
+modulate = Color(0.40392157, 0.40392157, 0.40392157, 1)
+offset_left = -39.0
+offset_top = -37.0
+offset_right = 38.0
+offset_bottom = 40.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_s15di")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_wf7rf")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8wtnh")
+theme_override_styles/focus = SubResource("StyleBoxFlat_au5f4")
+button_mask = 0
+
+[node name="LanternArt" parent="LanternButton/LanternButtonArt" instance=ExtResource("8_8wtnh")]
+position = Vector2(36, 46)
+scale = Vector2(5.505, 5.505)
 
 [connection signal="pressed" from="Panel/Button" to="." method="_on_button_pressed"]
 [connection signal="gui_input" from="Joystick" to="Joystick" method="_on_gui_input"]
