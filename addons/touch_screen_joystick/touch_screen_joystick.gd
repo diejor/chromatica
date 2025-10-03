@@ -11,8 +11,6 @@ class_name TouchScreenJoystick
 	set(b):
 		antialiased = b
 		queue_redraw()
-		
-@export var only_mobile: bool = true
 
 @export_range(0, 9999, 0.1, "hide_slider")
 var deadzone : float= 25.0 : 
