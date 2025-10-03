@@ -420,7 +420,6 @@ libraries = {
 }
 
 [node name="Joystick" type="Control" parent="."]
-visible = false
 layout_mode = 3
 anchors_preset = 0
 offset_left = 66.0
@@ -428,13 +427,12 @@ offset_top = 261.0
 offset_right = 106.0
 offset_bottom = 301.0
 script = ExtResource("6_s15di")
-deadzone = 20.0
+deadzone = 10.0
 base_radius = 60.0
 knob_radius = 40.0
 show_debug = true
 
 [node name="LanternButton" type="Button" parent="."]
-visible = false
 offset_left = 520.0
 offset_top = 251.0
 offset_right = 597.0
